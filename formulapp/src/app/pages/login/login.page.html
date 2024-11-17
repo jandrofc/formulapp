@@ -29,7 +29,9 @@
       <div *ngIf="form.controls.password.errors?.['required']">Contraseña requerida</div>
     </div>
 
-    <ion-button expand="block" fill="clear" node="ios" class="submit">
+    <ion-button
+    (click)="submit()"
+    expand="block" fill="clear" node="ios" class="submit">
       Ingresar
     </ion-button>
 

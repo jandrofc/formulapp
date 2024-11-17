@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './custom-input.component.html',
   styleUrls: ['./custom-input.component.scss'],
 })
-export class CustomInputComponent  implements OnInit {
+export class CustomInputComponent{
 
    // parametros para los imputs
    @Input() control!: FormControl;
@@ -20,7 +20,6 @@ export class CustomInputComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
 
   mostrarContraseña(){
     this.hide = !this.hide;
