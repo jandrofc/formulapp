@@ -13,9 +13,7 @@ export class RegistrarPage implements OnInit {
 
   userData: User = {
     nombre: '',
-    uid: '',
     email: '',
-    password: '',
     rol: ''
   };
 
@@ -44,10 +42,10 @@ export class RegistrarPage implements OnInit {
       // 3. Almacenar los datos adicionales en Firestore bajo el UID del usuario
       if (uid) {
         // Crear un nuevo objeto que excluya el campo 'password'
-        const { nombre, uid, email, password, rol } = this.userData;
+        const { nombre, email, rol } = this.userData;
 
         // Guardar en Firestore sin la contraseña
-        await this.firestoreService.createUser(uid, { nombre, uid, email, password, rol });
+        await this.firestoreService.createUser(uid, { nombre, email, rol });
 
         // 4. Redirigir al usuario a la página de inicio o a otra página
         this.router.navigate(['/login']);  // Redirige a home

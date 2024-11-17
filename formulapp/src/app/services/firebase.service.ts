@@ -37,8 +37,8 @@ export class FirebaseService {
     return createUserWithEmailAndPassword(this.afAuth, email, password);
   }
 
-  login(user: User){
-    return signInWithEmailAndPassword(getAuth(), user.email, user.password);
+  login(email: string, password: string){
+    return signInWithEmailAndPassword(this.afAuth, email, password);
   }
 
   logout() {
