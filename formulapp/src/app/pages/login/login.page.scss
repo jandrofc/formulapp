@@ -1,0 +1,98 @@
+ion-spinner {
+  color: #333333; /* Cambia #ff0000 por el color que desees */
+}
+
+ion-content {
+  --background: none; // Fondo blanco para todo el contenido
+  background: linear-gradient(to bottom, #171717, #575757); // Fondo degradado
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Altura completa de la ventana
+  padding: 0 20px; // Añade un poco de padding para los lados
+  box-sizing: border-box;
+  overflow: hidden; // Evita el scroll
+}
+
+.padre {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px; // Ajusta este valor para mover el contenido más abajo
+}
+
+.cabecera {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9df19;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.logo {
+  width: 100px; // Ajusta el tamaño del logo según sea necesario
+  height: auto;
+  margin-right: 10px; // Añade un margen a la derecha para separar el logo del texto
+}
+
+.titulo {
+  font-size: 1.5rem; // Ajusta el tamaño del texto según sea necesario
+  color: #ffbf00; // Cambia el color del texto si es necesario
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+ion-item {
+  width: 100%; // Asegura que los inputs ocupen todo el ancho disponible
+  max-width: 400px; // Limita el ancho máximo de los inputs
+  margin-bottom: 15px; // Espacio entre los inputs
+  --background: #ffffff;
+  border-radius: 8px;
+}
+
+ion-button {
+  margin-top: 20px; // Espacio entre los inputs y el botón
+  width: 60%; // Asegura que el botón ocupe todo el ancho disponible
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  --background: #f9df19;
+  --color: #000000;
+}
+
+a {
+  color: #0080ff; // Color del enlace
+  text-decoration: none; // Sin subrayado
+  width: 25%; // Asegura que el enlace ocupe todo el ancho disponible
+  margin-top: 20px; // Espacio entre el botón y el enlace
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a:hover {
+  text-decoration: underline; // Subrayado al pasar el ratón
+}
+ion-input{
+  color:#000000;
+}
+
+h1{
+  color:#ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}

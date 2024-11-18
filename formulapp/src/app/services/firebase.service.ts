@@ -12,6 +12,7 @@ import { BehaviorSubject } from 'rxjs';
 export class FirebaseService {
 
   private authStateSubject = new BehaviorSubject<any>(null);
+  authState$ = this.authStateSubject.asObservable();
   auth = inject(Auth);
 
   constructor(private afAuth: Auth, private firestoreService: FirestoreService) {

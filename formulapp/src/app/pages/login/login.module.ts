@@ -16,7 +16,7 @@ import { ShaderModule } from 'src/app/shader/shader.module';
     IonicModule,
     LoginPageRoutingModule,
     ShaderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [LoginPage]
 })

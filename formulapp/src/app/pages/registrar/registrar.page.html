@@ -1,18 +1,21 @@
 <ion-content>
+  <div class="cabecera">
+    <span class="titulo"></span>
+    <ion-img class="logo" src="" alt=""></ion-img>
+  </div>
+  <div class="form">
+    <h1>Registro</h1>
   <form (submit)="registerUser()">
     <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="userData.nombre" name="name"></ion-input>
+      <ion-input label="Nombre" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.nombre"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Correo Electrónico</ion-label>
-      <ion-input [(ngModel)]="userData.email" name="email" type="email"></ion-input>
+      <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.email"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
+      <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -24,7 +27,8 @@
     </ion-item>
 
     <ion-button expand="block" type="submit">Registrarse</ion-button>
+    <a [routerLink]="('')">Volver</a>
 
   </form>
-
+  </div>
 </ion-content>
