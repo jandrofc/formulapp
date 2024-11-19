@@ -7,15 +7,15 @@
     <h1>Registro</h1>
   <form (submit)="registerUser()">
     <ion-item>
-      <ion-input label="Nombre" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.nombre"></ion-input>
+      <ion-input label="Nombre" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.nombre" name="nombre"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.email"></ion-input>
+      <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="userData.email" name="correo"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password"></ion-input>
+      <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password" name="contraseña"></ion-input>
     </ion-item>
 
     <ion-item>

@@ -29,7 +29,7 @@ ion-content {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f9df19;
+  background-color: #19d7f9;
   width: 100%;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -57,7 +57,7 @@ ion-content {
 ion-item {
   width: 100%; // Asegura que los inputs ocupen todo el ancho disponible
   max-width: 400px; // Limita el ancho máximo de los inputs
-  margin-bottom: 15px; // Espacio entre los inputs
+  margin-bottom: 25px; // Espacio entre los inputs
   --background: #ffffff;
   border-radius: 8px;
 }
@@ -68,7 +68,9 @@ ion-button {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  --background: #f9df19;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  --background: #0080ff;
   --color: #000000;
 }
 
@@ -95,4 +97,6 @@ h1{
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin-bottom: 20px;
+  font-size: 2rem;
 }

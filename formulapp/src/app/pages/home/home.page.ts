@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
-import { home, flashlightOutline, newspaperOutline, powerOutline } from 'ionicons/icons';
+import { home, flashlightOutline, newspaperOutline, logOut } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,6 @@ export class HomePage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {addIcons({ home, flashlightOutline, newspaperOutline, powerOutline });}
+  ngOnInit() {addIcons({ home, flashlightOutline, newspaperOutline, logOut });}
 
 }

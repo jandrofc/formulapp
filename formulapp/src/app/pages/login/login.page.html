@@ -5,24 +5,22 @@
   </div>
   <div class="form">
     <h1>Iniciar Sesión</h1>
-    <form (submit)="loginUser()">
+    <form (ngSubmit)="loginUser()">
       <ion-item>
-        <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="email"></ion-input>
+        <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password"></ion-input>
+        <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
 
       <ion-button expand="block" type="submit">Ingresar</ion-button>
-      <a [routerLink]="('/registrar')">Registrarse</a>
 
-      @if(error){
-        <div>
-          <p>{{error}}</p>
-        </div>
-      }
+      <div *ngIf="error">
+        <p>{{error}}</p>
+      </div>
     </form>
+    <a [routerLink]="('/registrar')">Registrarse</a>
   </div>
 
 </ion-content>
