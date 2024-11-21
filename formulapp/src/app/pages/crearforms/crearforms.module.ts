@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { CrearformsPageRoutingModule } from './crearforms-routing.module';
 
-import { HomePage } from './home.page';
+import { CrearformsPage } from './crearforms.page';
 import { ShaderModule } from 'src/app/shader/shader.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ShaderModule } from 'src/app/shader/shader.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
+    CrearformsPageRoutingModule,
     ShaderModule,
   ],
-  declarations: [HomePage]
+  declarations: [CrearformsPage]
 })
-export class HomePageModule {}
+export class CrearformsPageModule {}

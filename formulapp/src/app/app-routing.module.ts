@@ -21,9 +21,27 @@ const routes: Routes = [
     loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    path: 'entrenado',
+    loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule)
   },
+  {
+    path: 'preparador',
+    loadChildren: () => import('./pages/preparador/preparador.module').then( m => m.PreparadorPageModule)
+  },
+  {
+    path: 'misforms',
+    loadChildren: () => import('./pages/misforms/misforms.module').then( m => m.MisformsPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },  {
+    path: 'crearforms',
+    loadChildren: () => import('./pages/crearforms/crearforms.module').then( m => m.CrearformsPageModule)
+  },
+
+
+
 ];
 
 @NgModule({

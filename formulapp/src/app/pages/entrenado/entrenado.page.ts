@@ -3,11 +3,11 @@ import { addIcons } from 'ionicons';
 import { home, flashlightOutline, newspaperOutline, logOut } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-entrenado',
+  templateUrl: './entrenado.page.html',
+  styleUrls: ['./entrenado.page.scss'],
 })
-export class HomePage implements OnInit {
+export class EntrenadoPage implements OnInit {
 
   constructor() { }
 
