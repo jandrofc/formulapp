@@ -1,5 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>FormulApp</ion-title>
-  </ion-toolbar>
+  <div class="cabecera">
+    <ion-buttons slot="start" class="menu-button">
+      <ion-button (click)="onClick()">
+        <ion-icon slot="start" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <span class="titulo"><b></b></span>
+    <ion-img class="logo" src="" alt=""></ion-img>
+    <ion-buttons class="power-button">
+      <ion-button (click)="logout()" class="boton"><ion-icon name="log-out"></ion-icon></ion-button>
+    </ion-buttons>
+  </div>
 </ion-header>

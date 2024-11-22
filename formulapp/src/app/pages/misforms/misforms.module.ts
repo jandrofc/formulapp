@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { MisformsPageRoutingModule } from './misforms-routing.module';
 
-import { LoginPage } from './login.page';
+import { MisformsPage } from './misforms.page';
 import { ShaderModule } from 'src/app/shader/shader.module';
 
 @NgModule({
@@ -14,10 +14,9 @@ import { ShaderModule } from 'src/app/shader/shader.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    LoginPageRoutingModule,
+    MisformsPageRoutingModule,
     ShaderModule,
-    ReactiveFormsModule,
   ],
-  declarations: [LoginPage]
+  declarations: [MisformsPage]
 })
-export class LoginPageModule {}
+export class MisformsPageModule {}

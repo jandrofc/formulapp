@@ -2,6 +2,8 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { User } from '../models/user.models';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,25 +12,41 @@ import { User } from '../models/user.models';
 })
 export class LoginPage   {
 
-  form = new FormGroup({
-    email : new FormControl('', [Validators.required, Validators.email]),
-    password : new FormControl('', [Validators.required])
-  });
+  email: string = '';
+  password: string = '';
+
+  error: string = '';
   // VARIABLES PARA QUE SE PUEDA VER O NO VER A CONTRAsena
   isPassword!: boolean;
   hide: boolean = true;
 
   firebase = inject(FirebaseService)
+  firestore = inject(FirestoreService)
+  router = inject(Router)
 
+  async loginUser() {
+    try {
+      // Iniciar sesión
+      const userCredential = await this.firebase.login(this.email, this.password);
 
+      // Obtener el UID del usuario autenticado
+      const uid = userCredential.user?.uid;
 
-  submit(){
-    if(this.form.valid){
-      this.firebase.login(this.form.value as User).then(res =>{
+      // Obtener el rol del usuario desde Firestore
+      const userData = await this.firestore.getUser(uid);
+      const rol = userData ? userData['rol'] : null;
 
-        console.log(res)
-       });
+      // Redirigir según el rol
+      if (rol === 'entrenador') {
+        this.router.navigate(['/preparador']);
+      } else if (rol === 'entrenado') {
+        this.router.navigate(['/entrenado']);
+      } else {
+        console.error('Rol desconocido:', rol);
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      this.error = this.firebase.GenerarError(error);
     }
-  }
-
-}
+   }
+   }

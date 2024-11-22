@@ -15,7 +15,7 @@ import { ShaderModule } from 'src/app/shader/shader.module';
     FormsModule,
     IonicModule,
     RegistrarPageRoutingModule,
-    ShaderModule
+    ShaderModule,
   ],
   declarations: [RegistrarPage]
 })
