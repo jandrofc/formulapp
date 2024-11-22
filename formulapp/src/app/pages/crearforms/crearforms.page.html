@@ -42,7 +42,7 @@
       </ion-item>
       <!--AGREGAR EL SHARED DEL TIPO DE PREGUNTA PARA GUARDAR LAS ALTERNATIVAS-->
 
-      <ion-button expand="full" >Agregar Pregunta</ion-button>
+      <ion-button expand="full" (click)="agregarPregunta()">Agregar Pregunta</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -64,7 +64,7 @@
   </ion-card>
 
   <ion-footer>
-    <ion-button expand="full" ((click)="GuardarFormulario()")>Guardar Formulario</ion-button>
+    <ion-button expand="full" (click)="crearFormulario()">Guardar Formulario</ion-button>
     <ion-button expand="full" color="danger">Cancelar</ion-button>
   </ion-footer>
 </ion-content>
