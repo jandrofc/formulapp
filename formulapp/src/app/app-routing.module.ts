@@ -26,20 +26,25 @@ const routes: Routes = [
   },
   {
     path: 'preparador',
-    loadChildren: () => import('./pages/preparador/preparador.module').then( m => m.PreparadorPageModule)
-  },
-  {
-    path: 'misforms',
-    loadChildren: () => import('./pages/misforms/misforms.module').then( m => m.MisformsPageModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/preparador/preparador.module').then(m => m.PreparadorPageModule)
+      },
+      {
+        path: 'misforms',
+        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
+      },
+      {
+        path: 'crearforms',
+        loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
+      }
+    ]
   },
   {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
-  },  {
-    path: 'crearforms',
-    loadChildren: () => import('./pages/crearforms/crearforms.module').then( m => m.CrearformsPageModule)
   },
-
 
 
 ];

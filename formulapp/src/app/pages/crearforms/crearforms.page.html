@@ -1,7 +1,70 @@
-<ion-content>
+<ion-header>
   <app-header></app-header>
-  <div class="contenedor-menu">
-    <div class="menu">
-    </div>
-  </div>
+  <ion-toolbar>
+    <ion-title>Crear Formulario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Detalles del Formulario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Nombre del Formulario</ion-label>
+        <ion-input [(ngModel)]="form.form_name" placeholder="Ingresa el nombre del formulario"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="form.descripcion" placeholder="Describe el propósito del formulario"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Agregar Pregunta</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Tipo de Pregunta</ion-label>
+        <ion-select [(ngModel)]="Pregunta.tipo" placeholder="Selecciona el tipo de pregunta">
+          <ion-item *ngFor="let tipos of tipo_formularios">
+            <ion-select-option value="{{ tipos.nombre }}">{{ tipos.nombre }}</ion-select-option>
+          </ion-item>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Texto de la Pregunta</ion-label>
+        <ion-input [(ngModel)]="Pregunta.texto" placeholder="Escribe la pregunta"></ion-input>
+      </ion-item>
+      <!--AGREGAR EL SHARED DEL TIPO DE PREGUNTA PARA GUARDAR LAS ALTERNATIVAS-->
+
+      <ion-button expand="full" >Agregar Pregunta</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vista Previa del Formulario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let pregunta of form.preguntas">
+          <ion-label>
+            <h2>{{ pregunta.texto }}</h2>
+            <p>{{ pregunta.tipo }}</p>
+            <p *ngIf="pregunta.opciones">Opciones: {{ pregunta.opciones.join(', ') }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer>
+    <ion-button expand="full" ((click)="GuardarFormulario()")>Guardar Formulario</ion-button>
+    <ion-button expand="full" color="danger">Cancelar</ion-button>
+  </ion-footer>
 </ion-content>
