@@ -31,18 +31,16 @@
       <ion-item>
         <ion-label position="stacked">Tipo de Pregunta</ion-label>
         <ion-select [(ngModel)]="Pregunta.tipo" placeholder="Selecciona el tipo de pregunta">
-          <ion-select-option value="abierta">Respuesta Abierta</ion-select-option>
-          <ion-select-option value="seleccion_multiple">Selección Múltiple</ion-select-option>
-          <ion-select-option value="verdadero_falso">Verdadero/Falso</ion-select-option>
-          <ion-select-option value="rango">Rango</ion-select-option>
+          <ion-item *ngFor="let tipos of tipo_formularios">
+            <ion-select-option value="{{ tipos.nombre }}">{{ tipos.nombre }}</ion-select-option>
+          </ion-item>
         </ion-select>
       </ion-item>
-
       <ion-item>
         <ion-label position="stacked">Texto de la Pregunta</ion-label>
         <ion-input [(ngModel)]="Pregunta.texto" placeholder="Escribe la pregunta"></ion-input>
       </ion-item>
-
+      <!--AGREGAR EL SHARED DEL TIPO DE PREGUNTA PARA GUARDAR LAS ALTERNATIVAS-->
 
       <ion-button expand="full" >Agregar Pregunta</ion-button>
     </ion-card-content>
@@ -66,7 +64,7 @@
   </ion-card>
 
   <ion-footer>
-    <ion-button expand="full" >Guardar Formulario</ion-button>
+    <ion-button expand="full" ((click)="GuardarFormulario()")>Guardar Formulario</ion-button>
     <ion-button expand="full" color="danger">Cancelar</ion-button>
   </ion-footer>
 </ion-content>

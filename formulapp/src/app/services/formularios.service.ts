@@ -6,10 +6,15 @@ import { Firestore, collection, doc, setDoc, getDocs, query, where, addDoc, upda
 })
 export class FormularioService {
   private formulariosCollection;
+  private tipo_form;
+  private form_respuestas;
 
   constructor(private firestore: Firestore) {
     // Apunta a la colección "formularios"
     this.formulariosCollection = collection(this.firestore, 'formularios');
+    this.tipo_form = collection(this.firestore, 'tipo_form');
+    this.form_respuestas = collection(this.firestore, 'form_respuestas');
+
   }
 
   // Crear un nuevo formulario
@@ -34,6 +39,20 @@ export class FormularioService {
       throw error;
     }
   }
+
+  async obtenerTiposDeFormulario(): Promise<any[]> {
+    try {
+      const q = query(this.tipo_form);
+      const querySnapshot = await getDocs(q);
+
+      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      console.error('Error al obtener formularios:', error);
+      throw error;
+    }
+  }
+
+
 
   // Actualizar un formulario
   async actualizarFormulario(formularioId: string, data: any): Promise<void> {
