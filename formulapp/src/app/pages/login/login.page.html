@@ -13,6 +13,9 @@
       <ion-item>
         <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
+      <div>
+        <a [routerLink]="('/password')">Recuperar Contrasena</a>
+      </div>
 
       <ion-button expand="block" type="submit">Ingresar</ion-button>
 

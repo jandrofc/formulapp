@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from '@angular/fire/auth';
 import { User } from '../pages/models/user.models';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FirestoreService } from './firestore.service';
@@ -75,6 +75,15 @@ export class FirebaseService {
     }
 
     return error;
+  }
+  resetPass(email: string){
+    return sendPasswordResetEmail(this.afAuth, email)
+    .then(() => {
+      console.log('Corre de recuperacion enviado');
+  })
+  .catch((error) => {
+    throw this.GenerarError(error);
+  });
   }
 
 }
