@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mis Formularios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Indicador de carga (spinner) cuando estamos obteniendo los formularios -->
+  <ion-spinner *ngIf="cargando" name="crescent" color="primary"></ion-spinner>
+
+  <!-- Mostrar un mensaje si no hay formularios -->
+  <div *ngIf="!cargando && formularios.length === 0" class="no-formularios">
+    <p>No tienes formularios creados.</p>
+  </div>
+
+  <!-- Mostrar los formularios si los hay -->
+  <div *ngIf="!cargando && formularios.length > 0">
+    <div *ngFor="let formulario of formularios" class="form-card">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ formulario.form_name || 'Formulario sin nombre' }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{ formulario.descripcion || 'Descripción no disponible.' }}</p>
+          <ion-button [routerLink]="['/preparador/formulario', formulario.user_id]" expand="full">
+            Ver Formulario
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

@@ -33,6 +33,7 @@ const routes: Routes = [
         path: 'misforms',
         loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
       },
+
     ],
     canActivate: [AuthGuard],
   },
@@ -47,6 +48,10 @@ const routes: Routes = [
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
       },
+      {
+        path: 'preparador-forms',
+        loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then(m => m.PreparadorFormsPageModule)
+      }
     ],
     canActivate: [AuthGuard],
   },
@@ -55,6 +60,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'preparador-forms',
+    loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then( m => m.PreparadorFormsPageModule)
+  },
+  {
+    path: 'preparador-forms',
+    loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then( m => m.PreparadorFormsPageModule)
+  },
+
 
 
 

@@ -32,6 +32,8 @@ export class FormularioService {
       const q = query(this.formulariosCollection, where('userId', '==', userId));
       const querySnapshot = await getDocs(q);
 
+      console.log(querySnapshot.docs); // Verifica si hay documentos
+
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
       console.error('Error al obtener formularios:', error);
