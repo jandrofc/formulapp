@@ -1,21 +1,20 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const firebaseService = inject(FirebaseService); // Obtener el servicio de autenticación
-  const router = inject(Router);  // Obtener el router
+@Injectable({
+  providedIn: 'root'
+})
 
-  return firebaseService.getAuthState().pipe(
-    map(isAuthenticated => {
-      if (isAuthenticated) {
-        return true; // Permitir acceso si está autenticado
-      } else {
-        router.navigate(['/login']); // Redirigir al login si no está autenticado
-        return false; // Denegar acceso si no está autenticado
-      }
-    })
-  );
-};
+export class AuthGuard implements CanActivate {
+  constructor(private authService: FirebaseService, private router: Router) {}
+
+  async canActivate(){
+    if (this.authService.isAuthenticated) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+}

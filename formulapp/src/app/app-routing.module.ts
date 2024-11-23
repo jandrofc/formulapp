@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard } from './guard/auth.guard';
+import { AuthGuard } from './guard/auth.guard';
 //import { redirectIfAuthGuard } from './guard/redirectIfAuth.guard';
 
 const routes: Routes = [
@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'entrenado',
     loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule),
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'preparador',
@@ -44,12 +44,12 @@ const routes: Routes = [
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
       }
     ],
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'perfil',
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
   },
 
 

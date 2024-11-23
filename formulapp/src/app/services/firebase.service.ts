@@ -34,6 +34,10 @@ export class FirebaseService {
     });
   }
 
+  get isAuthenticated() {
+    return this.authStateSubject.value !== null;
+  }
+
   register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.afAuth, email, password);
   }
