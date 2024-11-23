@@ -37,7 +37,7 @@ export class LoginPage   {
       const rol = userData ? userData['rol'] : null;
 
       // Redirigir según el rol
-      if (rol === 'entrenador') {
+      if (rol === 'preparador') {
         this.router.navigate(['/preparador']);
       } else if (rol === 'entrenado') {
         this.router.navigate(['/entrenado']);
