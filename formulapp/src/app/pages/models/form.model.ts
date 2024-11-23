@@ -3,6 +3,7 @@ export interface Formulario {
   descripcion: string;
   preguntas: Array<Preguntas>;
   user_id: string;
+  cantitad_respuestas: number;
 }
 export interface Respuestas {
   form_id: string;

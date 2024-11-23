@@ -52,11 +52,11 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let pregunta of form.preguntas">
+        <ion-item *ngFor="let i of form.preguntas">
           <ion-label>
-            <h2>{{ pregunta.texto }}</h2>
-            <p>{{ pregunta.tipo }}</p>
-            <p *ngIf="pregunta.opciones">Opciones: {{ pregunta.opciones.join(', ') }}</p>
+            <h2>{{ i.texto }}</h2>
+            <p>{{ i.tipo }}</p>
+            <p *ngIf="i.opciones">Opciones: {{ i.opciones.join(', ') }}</p>
           </ion-label>
         </ion-item>
       </ion-list>
