@@ -41,8 +41,21 @@
         <ion-input [(ngModel)]="Pregunta.texto" placeholder="Escribe la pregunta"></ion-input>
       </ion-item>
       <!--AGREGAR EL SHARED DEL TIPO DE PREGUNTA PARA GUARDAR LAS ALTERNATIVAS-->
+      <ng-container [ngSwitch]="Pregunta.tipo">
+        <!-- Componente para preguntas de tipo texto -->
+        <app-text
+          *ngSwitchCase="'respuesta_abierta'"
+          [(question)]="Pregunta">
+        </app-text>
 
-      <ion-button expand="full" >Agregar Pregunta</ion-button>
+        <!-- Componente para preguntas de tipo select -->
+        <app-select-one
+          *ngSwitchCase="'opcion_multiple'"
+          [(question)]="Pregunta">
+        </app-select-one>
+      </ng-container>
+
+      <ion-button expand="full" (click)="agregarPregunta()">Agregar Pregunta</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -64,7 +77,7 @@
   </ion-card>
 
   <ion-footer>
-    <ion-button expand="full" ((click)="GuardarFormulario()")>Guardar Formulario</ion-button>
+    <ion-button expand="full" (click)="crearFormulario()">Guardar Formulario</ion-button>
     <ion-button expand="full" color="danger">Cancelar</ion-button>
   </ion-footer>
 </ion-content>
