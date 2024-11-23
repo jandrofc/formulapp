@@ -4,7 +4,7 @@ import { User } from '../pages/models/user.models';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { FirestoreService } from './firestore.service';
 import { BehaviorSubject } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +32,11 @@ export class FirebaseService {
         this.authStateSubject.next(null);
       }
     });
+    console.log(this.authState$);
   }
 
   get isAuthenticated() {
-    return this.authStateSubject.value !== null;
+    return this.authState$.pipe(map(user => !!user));
   }
 
   register(email: string, password: string) {
