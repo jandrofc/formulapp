@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router,RouterStateSnapshot,ActivatedRouteSnapshot } from '@angular/router';
+import { Observable,from } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +11,43 @@ import { FirebaseService } from '../services/firebase.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: FirebaseService, private router: Router) {}
 
-  canActivate(): Observable<boolean> {
-    return this.authService.authState$.pipe(
-      take(1), // Tomar solo el primer valor emitido
-      map(user => {
-        if (user && user.rol === 'entrenado') { // Verificar el rol del usuario
-          return true;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Promise<boolean>{
+    console.log('AUTHGUARD ACTIVADO');
+    const requestedUrl = state.url;
+    console.log('CURRENTURL',requestedUrl);
+    return this.authService.checkUserAuth().then((user) => {
+      console.log('AUTHGUARD USER',user);
+      console.log('AUTHGUARD LOCALSTORAGE',localStorage.getItem('authtoken'));
+      console.log('!user && !localStorage',!user && !localStorage.getItem('authtoken'));
+      console.log('--------------------------')
+      if (!user && !localStorage.getItem('authtoken')) {
+        this.router.navigate(['/login']);
+        return false;
+      } else {
+        this.authService.authState$.subscribe((user)=>{
+          console.log("user.rol!='preparador' && currentUrl.startsWith('/preparador')",user.rol!='preparador' && requestedUrl.startsWith('/preparador'))
+          console.log("user.rol!='entrenado' && currentUrl.startsWith('/entrenado')",user.rol!='entrenado' && requestedUrl.startsWith('/entrenado'))
+          console.log('ROL',user.rol);
+          console.log('CURRENTURL',requestedUrl);
+          if (user.rol!='preparador' && requestedUrl.startsWith('/preparador')) {
+            this.router.navigate(['/',user.rol]);
+            return false;
+          }
+          else if(user.rol!='entrenado' && requestedUrl.startsWith('/entrenado')){
+            this.router.navigate(['/',user.rol]);
+            return false;
+          }
+          else{
+            console.log('ENTRA EN ELSE de authstate');
+
+            return true;
+          }
+          });
         }
-        else if (user && user.rol === 'preparador') { // Verificar el rol del usuario
-          return true;
-        }
-        else {
-          this.router.navigate(['/login']);
-          return false;
-        }
-      })
-    );
-  }
+        console.log('ENTRA EN ELSE de checkUserAuth');
+        return true;
+      });
+      }
 }
 
 @Injectable({
@@ -35,24 +56,21 @@ export class AuthGuard implements CanActivate {
 export class RedirectIfAuth implements CanActivate {
   constructor(private authService: FirebaseService, private router: Router) {}
 
-  canActivate(): Observable<boolean> {
-    return this.authService.authState$.pipe(
-      take(1), // Tomar solo el primer valor emitido
-      map(user => {
-        try{
-        if (user.rol === 'entrenado') { // Verificar el rol del usuario
-          this.router.navigate(['/entrenado']);
-          return false;
-        }
-        else if (user.rol === 'preparador') { // Verificar el rol del usuario
-          this.router.navigate(['/preparador']);
-          return false;
-        }else {
-          return true;
-        }
-      }catch{
+   canActivate(){
+    console.log('REDIRECTIF ACTIVADO');
+    return this.authService.checkUserAuth().then((user) => {
+      console.log('REDIRECTIF USER',user);
+      console.log('REDIRECTIF LOCALSTORAGE',localStorage.getItem('authtoken'));
+      console.log('------------------------------')
+      if (user || localStorage.getItem('authtoken')) {
+        this.authService.authState$.subscribe((user)=>{
+          console.log('ROL',user.rol);
+            this.router.navigate(['/',user.rol]);
+        });
+        return false;
+      } else {
         return true;
-      }})
-    );
-  }
+      }
+    });
+}
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { inject, Injectable } from '@angular/core';
 import { Auth, onAuthStateChanged, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from '@angular/fire/auth';
 import { User } from '../pages/models/user.models';
@@ -14,8 +15,10 @@ export class FirebaseService {
   private authStateSubject = new BehaviorSubject<any>(null);
   authState$ = this.authStateSubject.asObservable();
   auth = inject(Auth);
+  constructor(private afAuth: Auth, private firestoreService: FirestoreService,private Router: Router) {
 
-  constructor(private afAuth: Auth, private firestoreService: FirestoreService) {
+
+    /*
     // Escuchar cambios en el estado de autenticación
     onAuthStateChanged(this.afAuth, async (user) => {
       if (user) {
@@ -31,13 +34,44 @@ export class FirebaseService {
         // Si no hay usuario autenticado, emitir null
         this.authStateSubject.next(null);
       }
-    });
-    console.log(this.authState$);
+    });*/
+
   }
 
-  get isAuthenticated() {
-    return this.authState$.pipe(map(user => !!user));
+  async checkUserAuth() {
+
+    const user = await this.afAuth.currentUser;
+    console.log('CHECK USER USER',user);
+    console.log('CHECK USER LOCALSTORAGE',localStorage.getItem('authtoken'));
+    console.log('CHECK USER',this.authStateSubject);
+    if (user) {
+      const userData = await this.firestoreService.getUser(user.uid);
+      const fullUserData = {
+        uid: user.uid,
+        email: user.email,
+        ...userData,
+      };
+      this.authStateSubject.next(fullUserData);
+      return true;
+    } else {
+      const token = localStorage.getItem('authtoken');
+      if (token) {
+        const user = JSON.parse(token);
+        const userData = await this.firestoreService.getUser(user.uid);
+        const fullUserData = {
+          uid: user.uid,
+          email: user.email,
+          rol: user.rol,
+          ...userData,
+        };
+        this.authStateSubject.next(fullUserData);
+        return true;
+      }
+      this.authStateSubject.next(null);
+      return false;
+      }
   }
+
 
   register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.afAuth, email, password);
@@ -50,6 +84,8 @@ export class FirebaseService {
   logout() {
     return signOut(this.afAuth).then(() => {
       this.authStateSubject.next(null);
+      localStorage.removeItem('authtoken');
+      this.Router.navigate(['/login']);
     });
   }
 

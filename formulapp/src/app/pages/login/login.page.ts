@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage   {
+export class LoginPage  implements OnInit {
 
   email: string = '';
   password: string = '';
@@ -23,6 +23,10 @@ export class LoginPage   {
   firebase = inject(FirebaseService)
   firestore = inject(FirestoreService)
   router = inject(Router)
+
+  ngOnInit(): void {
+    console.log('LOGIN');
+  }
 
   async loginUser() {
     try {
