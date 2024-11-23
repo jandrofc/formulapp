@@ -24,7 +24,16 @@ const routes: Routes = [
   },
   {
     path: 'entrenado',
-    loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule),
+    children: [
+      {
+        path: 'ver-forms/:id',
+        loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
+      },
+      {
+        path: 'misforms',
+        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
+      },
+    ],
     canActivate: [AuthGuard],
   },
   {
@@ -35,16 +44,8 @@ const routes: Routes = [
         loadChildren: () => import('./pages/preparador/preparador.module').then(m => m.PreparadorPageModule)
       },
       {
-        path: 'misforms',
-        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
-      },
-      {
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
-      },
-      {
-        path: 'ver-forms/:id',
-        loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
       },
     ],
     canActivate: [AuthGuard],
