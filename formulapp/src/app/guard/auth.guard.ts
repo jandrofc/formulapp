@@ -12,16 +12,12 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.authService.authState$.pipe(
-      take(1), // Tomar solo el primer valor emitido
-      map(user => {
-        if (user && user.rol === 'entrenado') { // Verificar el rol del usuario
-          return true;
-        }
-        else if (user && user.rol === 'preparador') { // Verificar el rol del usuario
-          return true;
-        }
-        else {
-          this.router.navigate(['/login']);
+      take(1),
+      map((user) => {
+        if (user && (user.rol === 'entrenado' || user.rol === 'preparador')) {
+          return true; // Usuario autenticado con rol válido
+        } else {
+          this.router.navigate(['/login']); // Redirigir al login si no está autenticado
           return false;
         }
       })
@@ -37,22 +33,19 @@ export class RedirectIfAuth implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.authService.authState$.pipe(
-      take(1), // Tomar solo el primer valor emitido
-      map(user => {
-        try{
-        if (user.rol === 'entrenado') { // Verificar el rol del usuario
-          this.router.navigate(['/entrenado']);
-          return false;
+      take(1),
+      map((user) => {
+        if (user) {
+          // Redirigir según el rol del usuario
+          if (user.rol === 'entrenado') {
+            this.router.navigate(['/entrenado']);
+          } else if (user.rol === 'preparador') {
+            this.router.navigate(['/preparador']);
+          }
+          return false; // Bloquear acceso a rutas como login
         }
-        else if (user.rol === 'preparador') { // Verificar el rol del usuario
-          this.router.navigate(['/preparador']);
-          return false;
-        }else {
-          return true;
-        }
-      }catch{
-        return true;
-      }})
+        return true; // Permitir acceso si no está autenticado
+      })
     );
   }
 }

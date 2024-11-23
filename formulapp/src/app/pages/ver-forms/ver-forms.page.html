@@ -1,0 +1,35 @@
+<ion-content *ngIf="!cargando; ">
+  <!-- Si se cargó correctamente el formulario -->
+  <ion-card *ngIf="formulario; ">
+    <ion-card-header>
+      <ion-card-title>{{ formulario.form_name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ formulario.descripcion }}</p>
+    </ion-card-content>
+
+    <ion-list>
+      <!-- Itera sobre las preguntas del formulario -->
+      <ion-item *ngFor="let pregunta of formulario.preguntas; let i = index">
+        <ion-label position="stacked">{{ pregunta.texto }}</ion-label>
+
+        <!-- Si la pregunta es de tipo abierta -->
+        <ion-input
+          *ngIf="pregunta.tipo === 'Pregunta abierta'"
+          [(ngModel)]="respuestas[i]"
+          placeholder="Escribe tu respuesta aquí">
+        </ion-input>
+
+        <!-- Si la pregunta es de opción múltiple -->
+        <ion-radio-group *ngIf="pregunta.tipo === 'Opcion multiple'" [(ngModel)]="respuestas[i]">
+          <ion-item *ngFor="let opcion of pregunta.opciones">
+            <ion-label>{{ opcion }}</ion-label>
+            <ion-radio slot="start" [value]="opcion"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-item>
+    </ion-list>
+
+    <!-- Botón para enviar las respuestas -->
+  </ion-card>
+</ion-content>

@@ -41,7 +41,11 @@ const routes: Routes = [
       {
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
-      }
+      },
+      {
+        path: 'ver-forms/:id',
+        loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
+      },
     ],
     canActivate: [AuthGuard],
   },
@@ -50,6 +54,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
     canActivate: [AuthGuard],
   },
+
+
 
 
 ];

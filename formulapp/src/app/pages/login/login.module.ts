@@ -17,6 +17,7 @@ import { ShaderModule } from 'src/app/shader/shader.module';
     LoginPageRoutingModule,
     ShaderModule,
     ReactiveFormsModule,
+
   ],
   declarations: [LoginPage]
 })
