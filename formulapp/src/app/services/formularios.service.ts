@@ -27,12 +27,12 @@ export class FormularioService {
   // Crear un nuevo formulario
 
   // Obtener todos los formularios de un usuario
-  async obtenerFormulariosPorUsuario(userId: string): Promise<any[]> {
+  async obtenerFormulariosPorUsuario(user_id: string): Promise<any[]> {
     try {
-      const q = query(this.formulariosCollection, where('userId', '==', userId));
+      const q = query(this.formulariosCollection, where('user_id', '==', user_id));
       const querySnapshot = await getDocs(q);
 
-      console.log(querySnapshot.docs); // Verifica si hay documentos
+      console.log('Documentos encontrados:', querySnapshot.docs.map(doc => doc.data())); // Verifica si hay documentos
 
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     } catch (error) {

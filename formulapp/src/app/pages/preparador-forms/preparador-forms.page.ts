@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormularioService } from 'src/app/services/formularios.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { Formulario } from 'src/app/pages/models/form.model';
 
 @Component({
   selector: 'app-preparador-forms',
@@ -9,19 +8,28 @@ import { Formulario } from 'src/app/pages/models/form.model';
   styleUrls: ['./preparador-forms.page.scss'],
 })
 export class PreparadorFormsPage implements OnInit {
-  formularios: Formulario[] = [];
-  cargando: boolean = true;
+  formularios: Array<any> = [];
+  cargando = true;
 
   constructor(
     private formularioService: FormularioService,
     private firebaseService: FirebaseService
   ) {}
 
-  ngOnInit() {
-    this.firebaseService.authState$.subscribe(user => {
-      if (user && user.uid) {
-        console.log('Usuario autenticado:', user.uid); // Verifica que el UID es correcto
-        this.cargarFormularios(user.uid);
+  async ngOnInit() {
+    // Obtener el usuario actual
+    this.firebaseService.authState$.subscribe(async (user) => {
+      if (user) {
+        console.log('UID del usuario autenticado:', user.uid);
+        try {
+          // Obtener los formularios creados por el usuario
+          this.formularios = await this.formularioService.obtenerFormulariosPorUsuario(user.uid);
+          console.log('Formularios obtenidos:', this.formularios);
+        } catch (error) {
+          console.error('Error al cargar los formularios:', error);
+        } finally {
+          this.cargando = false;
+        }
       } else {
         console.error('Usuario no autenticado');
         this.cargando = false;
@@ -29,21 +37,13 @@ export class PreparadorFormsPage implements OnInit {
     });
   }
 
-  async cargarFormularios(userId: string) {
+  // Método para eliminar un formulario
+  async eliminarFormulario(id: string) {
     try {
-      console.log('Cargando formularios para el usuario:', userId); // Verifica que el ID es correcto
-      this.formularios = await this.formularioService.obtenerFormulariosPorUsuario(userId);
-
-      // Verifica si se encontraron formularios
-      if (this.formularios.length === 0) {
-        console.log('No se encontraron formularios para este usuario.');
-      } else {
-        console.log('Formularios cargados:', this.formularios);
-      }
+      await this.formularioService.eliminarFormulario(id);
+      this.formularios = this.formularios.filter((form) => form.id !== id);
     } catch (error) {
-      console.error('Error al cargar los formularios:', error);
-    } finally {
-      this.cargando = false;
+      console.error('Error al eliminar el formulario:', error);
     }
   }
 }

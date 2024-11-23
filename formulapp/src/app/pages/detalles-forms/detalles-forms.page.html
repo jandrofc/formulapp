@@ -1,0 +1,27 @@
+<app-header></app-header>
+<ion-content>
+  <ion-spinner *ngIf="cargando"></ion-spinner>
+
+  <ion-card *ngIf="!cargando && formulario">
+    <ion-card-header>
+      <ion-card-title>{{ formulario.form_name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Descripción:</strong> {{ formulario.descripcion }}</p>
+      <div *ngFor="let pregunta of formulario.preguntas">
+        <p><strong>Pregunta:</strong> {{ pregunta.texto }}</p>
+        <p><strong>Tipo:</strong> {{ pregunta.tipo }}</p>
+        <div *ngIf="pregunta.opciones">
+          <p><strong>Opciones:</strong> {{ pregunta.opciones.join(', ') }}</p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!cargando && !formulario">
+    <ion-card-content>
+      <p>No se encontró el formulario.</p>
+    </ion-card-content>
+  </ion-card>
+  <a [routerLink]="('/preparador/preparador-forms')">Volver</a>
+</ion-content>

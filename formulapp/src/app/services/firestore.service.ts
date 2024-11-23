@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../pages/models/user.models';
-import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, getDoc, updateDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,11 @@ export class FirestoreService {
     const userDocRef = doc(this.firestore, `users/${uid}`);
     const userDoc = await getDoc(userDocRef);
     return userDoc.exists() ? userDoc.data() : null;
+  }
+
+  async updateUser(userId: string, data: any): Promise<void> {
+    const userRef = doc(this.firestore, 'users', userId);
+    await updateDoc(userRef, data);
   }
 
 }

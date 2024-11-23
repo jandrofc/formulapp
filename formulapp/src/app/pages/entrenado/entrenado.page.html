@@ -1,9 +1,14 @@
 <ion-content>
   <app-header></app-header>
+  <div class="saludar">
+    @if (user!==null){
+      <span class="saludo">¡Bienvenido <span class="nombre">{{user.nombre}}</span>!</span>
+    }
+  </div>
   <div class="contenedor-menu">
     <div class="menu">
       <ion-button [routerLink]="('/perfil')" class="boton">Perfil</ion-button>
-      <ion-button [routerLink]="('/misforms')" class="boton">Mis Formularios</ion-button>
+      <ion-button [routerLink]="('/entrenado/misforms')" class="boton">Mis Formularios</ion-button>
     </div>
   </div>
 </ion-content>

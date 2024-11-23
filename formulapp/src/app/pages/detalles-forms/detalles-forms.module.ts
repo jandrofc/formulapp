@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PreparadorFormsPageRoutingModule } from './preparador-forms-routing.module';
+import { DetallesFormsPageRoutingModule } from './detalles-forms-routing.module';
 
-import { PreparadorFormsPage } from './preparador-forms.page';
+import { DetallesFormsPage } from './detalles-forms.page';
 import { ShaderModule } from "../../shader/shader.module";
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ShaderModule } from "../../shader/shader.module";
     CommonModule,
     FormsModule,
     IonicModule,
-    PreparadorFormsPageRoutingModule,
+    DetallesFormsPageRoutingModule,
     ShaderModule
 ],
-  declarations: [PreparadorFormsPage]
+  declarations: [DetallesFormsPage]
 })
-export class PreparadorFormsPageModule {}
+export class DetallesFormsPageModule {}

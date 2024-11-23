@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    canActivate: [RedirectIfAuth],
   },
   {
     path: 'registrar',
@@ -25,6 +24,10 @@ const routes: Routes = [
   {
     path: 'entrenado',
     children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/entrenado/entrenado.module').then(m => m.EntrenadoPageModule)
+      },
       {
         path: 'ver-forms/:id',
         loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
@@ -51,7 +54,11 @@ const routes: Routes = [
       {
         path: 'preparador-forms',
         loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then(m => m.PreparadorFormsPageModule)
-      }
+      },
+      {
+        path: 'detalles-forms/:id',
+        loadChildren: () => import('./pages/detalles-forms/detalles-forms.module').then( m => m.DetallesFormsPageModule)
+      },
     ],
     canActivate: [AuthGuard],
   },
@@ -60,14 +67,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
     canActivate: [AuthGuard],
   },
-  {
-    path: 'preparador-forms',
-    loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then( m => m.PreparadorFormsPageModule)
-  },
-  {
-    path: 'preparador-forms',
-    loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then( m => m.PreparadorFormsPageModule)
-  },
+
 
 
 

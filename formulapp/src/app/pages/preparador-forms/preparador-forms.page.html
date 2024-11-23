@@ -1,32 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Mis Formularios</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
+<ion-content>
+  <ion-spinner *ngIf="cargando"></ion-spinner>
 
-<ion-content [fullscreen]="true">
-  <!-- Indicador de carga (spinner) cuando estamos obteniendo los formularios -->
-  <ion-spinner *ngIf="cargando" name="crescent" color="primary"></ion-spinner>
+  <ion-list *ngIf="!cargando && formularios.length > 0">
+    <ion-item *ngFor="let formulario of formularios">
+      <ion-label>
+        <h2>{{ formulario.form_name }}</h2>
+        <p>{{ formulario.descripcion }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/preparador/detalles-forms', formulario.id]">
+          Ver detalles
+        </ion-button>
+        <ion-button color="danger" (click)="eliminarFormulario(formulario.id)">
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
 
-  <!-- Mostrar un mensaje si no hay formularios -->
-  <div *ngIf="!cargando && formularios.length === 0" class="no-formularios">
-    <p>No tienes formularios creados.</p>
-  </div>
-
-  <!-- Mostrar los formularios si los hay -->
-  <div *ngIf="!cargando && formularios.length > 0">
-    <div *ngFor="let formulario of formularios" class="form-card">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ formulario.form_name || 'Formulario sin nombre' }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ formulario.descripcion || 'Descripción no disponible.' }}</p>
-          <ion-button [routerLink]="['/preparador/formulario', formulario.user_id]" expand="full">
-            Ver Formulario
-          </ion-button>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </div>
+  <ion-card *ngIf="!cargando && formularios.length === 0">
+    <ion-card-content>
+      <p>No tienes formularios creados.</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

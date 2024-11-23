@@ -34,6 +34,7 @@ app-header {
 }
 
 ion-button.boton {
+  --background: linear-gradient(to bottom, #0080ff, #00bfff);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,16 +45,26 @@ ion-button.boton {
   height: 100px;
   width: 100%;
   border-radius: 15px;
-  border: 2px solid white;
   overflow: hidden;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.2s, box-shadow 0.2s;
-}
-
-ion-button.boton:hover {
-  --background: #0056b3;               /* Cambiar color al pasar el mouse */
 }
 
 ion-icon.icono {
   font-size: 40px;
+}
+
+.saludar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #000000;
+}
+
+.saludo {
+  color:#ffffff;
+}
+
+.nombre {
+  color:#0080ff;
 }

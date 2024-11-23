@@ -28,23 +28,16 @@
   justify-content: flex-end;
 }
 
+.power-button .boton-texto {
+  font-size: 12px;
+}
+
+.power-button ion-icon {
+  font-size: 30px;
+}
+
 .titulo {
   font-size: 1.8rem; // Ajusta el tamaño del texto según sea necesario
   color: #ffbf00; // Cambia el color del texto a negro
   margin-left: 10px;
-}
-
-.saludar {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: #000000;
-}
-
-.saludo {
-  color:#ffffff;
-}
-
-.nombre {
-  color:#ffbf00;
 }

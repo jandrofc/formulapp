@@ -39,8 +39,10 @@ export class LoginPage   {
       // Redirigir según el rol
       if (rol === 'preparador') {
         this.router.navigate(['/preparador']);
+        console.log('Redirigiendo a preparador')
       } else if (rol === 'entrenado') {
         this.router.navigate(['/entrenado']);
+        console.log('Redirigiendo a entrenado')
       } else {
         console.error('Rol desconocido:', rol);
       }
