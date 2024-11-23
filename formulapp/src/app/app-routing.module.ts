@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guard/auth.guard';
+//import { redirectIfAuthGuard } from './guard/redirectIfAuth.guard';
 
 const routes: Routes = [
 
@@ -10,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [],
   },
   {
     path: 'registrar',
@@ -22,7 +25,8 @@ const routes: Routes = [
   },
   {
     path: 'entrenado',
-    loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule)
+    loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule),
+    canActivate: [authGuard],
   },
   {
     path: 'preparador',
@@ -39,11 +43,13 @@ const routes: Routes = [
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
       }
-    ]
+    ],
+    canActivate: [authGuard],
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
+    canActivate: [authGuard],
   },
 
 
