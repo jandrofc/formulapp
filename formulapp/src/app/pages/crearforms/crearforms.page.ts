@@ -46,7 +46,10 @@ export class CrearformsPage implements OnInit {
   }
 
   async agregarPregunta() {
-    this.form.preguntas.push(this.Pregunta);
+    if (this.Pregunta.texto.trim() !== '') {
+      this.form.preguntas.push({ ...this.Pregunta }); // Agrega la pregunta al formulario
+      this.Pregunta = { texto: '', tipo: '', opciones: [] }; // Limpia el objeto de pregunta
+    }
   }
 
   async crearFormulario() {
