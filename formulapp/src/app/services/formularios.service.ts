@@ -182,5 +182,29 @@ export class FormularioService {
       const snapshot = await getDocs(q);
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
+
+    async obtenerRespuestasDeUsarios(formId: string) {
+      const Preguntas = collection(this.firestore, 'formularios');
+      const DirecForm = doc(this.firestore, `formularios/${formId}`)
+      const FormularioSnap = await getDoc(DirecForm);
+      const FormularioData = FormularioSnap.data();
+
+      if(FormularioData!=null){
+        const RespuestasRef = collection(this.firestore, 'form_respuestas');
+        const q = query(RespuestasRef, where('form_id', '==', formId));
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) {
+          alert('No hay respuestas para este formulario');
+          return;
+        }
+        const FormRespuestas=snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        FormularioData['respuestas']=FormRespuestas;
+        return FormularioData;}
+
+      alert('Hubo un error al obtener las respuestas');
+      return
+    }
+
+
 }
 

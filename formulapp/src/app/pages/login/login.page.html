@@ -1,24 +1,43 @@
-<ion-content >
+<ion-content>
   <div class="cabecera">
     <span class="titulo"></span>
     <ion-img class="logo" src="" alt=""></ion-img>
   </div>
+
   <div class="form">
     <h1>Iniciar Sesión</h1>
     <form (ngSubmit)="loginUser()">
       <ion-item>
-        <ion-input label="Correo Electrónico" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="email" name="email"></ion-input>
+        <ion-input
+          label="Correo Electrónico"
+          labelPlacement="floating"
+          [counter]="true"
+          maxlength="50"
+          [(ngModel)]="email"
+          name="email">
+        </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input  type="password" label="Contraseña" labelPlacement="floating" [counter]="true" maxlength="50" [(ngModel)]="password" name="password"></ion-input>
+        <ion-input
+          type="password"
+          label="Contraseña"
+          labelPlacement="floating"
+          [counter]="true"
+          maxlength="50"
+          [(ngModel)]="password"
+          name="password">
+        </ion-input>
       </ion-item>
+
       <div>
         <a [routerLink]="('/password')">Recuperar Contraseña</a>
       </div>
 
       <ion-button expand="block" type="submit">Ingresar</ion-button>
-
+        <div *ngIf="isLogging"class="loading-container">
+          <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+        </div>
       <div *ngIf="error">
         <p>{{error}}</p>
       </div>
@@ -26,4 +45,11 @@
     <a [routerLink]="('/registrar')">Registrarse</a>
   </div>
 
+  <!-- Spinner para mostrar el estado de carga -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-container">
+      <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+      <p class="loading-text" style="font-size: larger; font-weight: bold;">Cargando datos...</p>
+    </div>
+  </div>
 </ion-content>

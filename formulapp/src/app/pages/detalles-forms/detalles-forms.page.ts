@@ -1,3 +1,4 @@
+import { Respuestas } from './../models/form.model';
 import { Component, OnInit } from '@angular/core';
 import { Formulario } from '../models/form.model';
 import { ActivatedRoute } from '@angular/router';
@@ -9,8 +10,12 @@ import { FormularioService } from 'src/app/services/formularios.service';
   styleUrls: ['./detalles-forms.page.scss'],
 })
 export class DetallesFormsPage implements OnInit {
-  formulario: Formulario | null = null;
+  formulario: any | null = null;
   cargando = true;
+
+  respuestasVisibles: boolean[] = [];
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -23,8 +28,7 @@ export class DetallesFormsPage implements OnInit {
 
     if (id) {
       try {
-        // Cargar los datos del formulario desde el servicio
-        this.formulario = await this.formularioService.obtenerFormularioPorId(id);
+        this.formulario = await this.formularioService.obtenerRespuestasDeUsarios(id);
         console.log('Formulario obtenido:', this.formulario);
       } catch (error) {
         console.error('Error al cargar el formulario:', error);
@@ -33,4 +37,11 @@ export class DetallesFormsPage implements OnInit {
       }
     }
   }
+
+  toggleRespuestas(index: number): void {
+    this.respuestasVisibles[index] = !this.respuestasVisibles[index];
+  }
+
+
+
 }

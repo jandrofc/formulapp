@@ -1,4 +1,13 @@
-<ion-content>
+<app-header></app-header>
+
+<div *ngIf="cargando" class="loading-overlay">
+  <div class="loading-container">
+    <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+    <p class="loading-text" style="font-size: larger; font-weight: bold;">Cargando datos...</p>
+  </div>
+</div>
+
+<ion-content *ngIf="!cargando">
   <ion-header>
     <ion-toolbar>
       <ion-title>Formularios Compartidos</ion-title>
