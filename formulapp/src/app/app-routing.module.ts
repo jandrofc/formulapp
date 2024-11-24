@@ -44,7 +44,11 @@ const routes: Routes = [
       {
         path: 'mis-resp',
         loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
-      }
+      },
+      {
+        path: 'responder-formulario/:id',
+        loadChildren: () => import('./pages/responder-formulario/responder-formulario.module').then( m => m.ResponderFormularioPageModule)
+      },
     ],
     canActivate: [AuthGuard],
   },
@@ -72,7 +76,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/detalles-forms/detalles-forms.module').then( m => m.DetallesFormsPageModule)
       },
       {
-        path: 'compartir-forms/:id',
+        path: 'compartir-forms',
         loadChildren: () => import('./pages/compartir-forms/compartir-forms.module').then( m => m.CompartirFormsPageModule)
       },
     ],
