@@ -1,11 +1,31 @@
-<ng-container *ngIf="formulariosCompartidos.length > 0">
-  <h2>Formularios Compartidos</h2>
-  <ul>
-    <li *ngFor="let formulario of formulariosCompartidos">
-      {{ formulario.form_name }}
-    </li>
-  </ul>
-</ng-container>
-<ng-container *ngIf="formulariosCompartidos.length === 0">
-  <p>No tienes formularios compartidos.</p>
-</ng-container>
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Formularios Compartidos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list *ngIf="formulariosCompartidos.length > 0; else noFormularios">
+    <ion-item *ngFor="let formulario of formulariosCompartidos">
+      <ion-label>
+        <h2>{{ formulario.form_name }}</h2>
+        <p>
+          <ion-text color="success" *ngIf="formulario.respondido">(Respondido)</ion-text>
+          <ion-text color="danger" *ngIf="!formulario.respondido">(Sin responder)</ion-text>
+        </p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="responderFormulario(formulario)">Responder</ion-button>
+        <ion-button color="secondary" [disabled]="!formulario.respondido" (click)="verRespuestas(formulario)">
+          Ver Respuestas
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noFormularios>
+    <ion-text color="medium">
+      <p style="text-align: center; margin-top: 2rem;">No tienes formularios compartidos.</p>
+    </ion-text>
+  </ng-template>
+</ion-content>

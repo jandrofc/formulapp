@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, setDoc, getDocs, query, where, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import { getDoc, getFirestore } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Formulario } from '../pages/models/form.model';
 
@@ -15,6 +15,10 @@ export class FormularioService {
   private form_respuestas;
   private db;
 
+  private formularioSubject = new BehaviorSubject<any>(null);
+  formulario$ = this.formularioSubject.asObservable();
+
+
   constructor(private firestore: Firestore) {
     // Apunta a la colección "formularios"
     this.formulariosCollection = collection(this.firestore, 'formularios');
@@ -25,6 +29,10 @@ export class FormularioService {
   }
 
   // Crear un nuevo formulario
+  CargarFormulario(formulario: Formulario) {
+    this.formularioSubject.next(formulario);
+  }
+
 
   // Obtener todos los formularios de un usuario
   async obtenerFormulariosPorUsuario(user_id: string): Promise<any[]> {
@@ -126,6 +134,19 @@ export class FormularioService {
       }
     }
 
+    async verificarCorreoExistente(email: string) {
+      const usuariosRef = collection(this.firestore, 'users');
+      const q = query(usuariosRef, where('email', '==', email));
+      const snapshot = await getDocs(q);
+      // Si hay usuarios con ese email, lo devuelve
+      if (!snapshot.empty) {
+        return true; // Correo encontrado
+      } else {
+        return false; // Correo no encontrado
+      }
+    }
+
+
     async compartirFormulario(formId: string, correo: string): Promise<void> {
       try {
         // Referencia al formulario
@@ -145,6 +166,7 @@ export class FormularioService {
             console.log('Formulario actualizado y compartido con:', correo);
           } else {
             console.log('El correo ya tiene acceso al formulario.');
+            alert('El correo ya tiene acceso al formulario.');
           }
         } else {
           throw new Error('Formulario no encontrado.');
@@ -154,15 +176,11 @@ export class FormularioService {
         throw error;
       }
     }
-
-
     async obtenerFormulariosCompartidos(email: string) {
       const formsRef = collection(this.firestore, 'formularios');
-      const q = query(formsRef, where('compartidosCon', 'array-contains', email));
+      const q = query(formsRef, where('compartidoCon', 'array-contains', email));
       const snapshot = await getDocs(q);
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
-
-
 }
 
