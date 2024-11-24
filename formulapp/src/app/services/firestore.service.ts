@@ -30,4 +30,8 @@ export class FirestoreService {
     await updateDoc(userRef, data);
   }
 
+  async agregarDocumento(coleccion: string, data: any): Promise<void> {
+    const docRef = doc(this.firestore, coleccion);
+    await setDoc(docRef, data);
+  }
 }

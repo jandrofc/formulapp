@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormularioService } from 'src/app/services/formularios.service';
 import { Formulario } from '../models/form.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-responder-formulario',
@@ -15,7 +16,9 @@ export class ResponderFormularioPage implements OnInit {
 
   constructor(private formularioService: FormularioService,
     private Router: Router,
-    private DinamicRouter: ActivatedRoute) {
+    private DinamicRouter: ActivatedRoute,
+    private firebaseService: FirebaseService,
+    private firestoreService: FirestoreService) {
   }
 
 
@@ -27,18 +30,41 @@ export class ResponderFormularioPage implements OnInit {
       if (formulario) {
         this.InformacionForm = formulario;
         console.log('Informacion del formulario:', this.InformacionForm);
+
       }
-    })
-
-
-
-
-  };
-
-
-  enviarFormulario() {
-    console.log('Formulario enviado');
+    });
   }
 
+  async enviarFormulario() {
+    this.firebaseService.getCurrentUser().subscribe(user => {
+      if (!user) {
+        console.error('Usuario no autenticado.');
+        return;
+      }
 
+      // Preparar las respuestas
+      const respuestas = this.InformacionForm.preguntas.map((pregunta: any) => {
+        return {
+          pregunta: pregunta.texto,
+          respuesta: pregunta.selectedOption || '', // Usar la opción seleccionada o dejar vacío
+        };
+      });
+
+      // Crear el objeto de respuesta
+      const formRespuesta = {
+        form_id: this.InformacionForm.id, // ID del formulario
+        respuestas, // Respuestas recopiladas
+        user_id: user.uid, // ID del usuario actual
+      };
+
+      // Guardar en Firestore
+      await this.firestoreService.agregarDocumento('form_respuestas', formRespuesta);
+
+      // Confirmar éxito
+      console.log('Respuestas enviadas correctamente:', formRespuesta);
+    })
+     catch (error) {
+      console.error('Error al enviar las respuestas:', error);
+    }}
 }
+
