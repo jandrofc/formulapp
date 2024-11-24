@@ -29,6 +29,9 @@ const routes: Routes = [
         loadChildren: () => import('./pages/entrenado/entrenado.module').then(m => m.EntrenadoPageModule)
       },
       {
+        path: 'perfil',
+        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
         path: 'ver-forms',
         loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
       },
@@ -52,6 +55,9 @@ const routes: Routes = [
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
       },
       {
+        path: 'perfil',
+        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
         path: 'preparador-forms',
         loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then(m => m.PreparadorFormsPageModule)
       },
@@ -67,15 +73,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
-    canActivate: [AuthGuard],
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'mis-resp',
     loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
   },
-
 
 
 
