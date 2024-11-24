@@ -27,10 +27,17 @@ export class SelectOneComponent  implements OnInit {
   }
 
   onOptionChange(value: string, index: number) {
-    this.question.opciones[index] = value;
+    this.opcionTemp[index] = value;
   }
 
   saveOptions() {
-    this.optionsSaved.emit(true);
+    const allOptionsSaved = this.opcionTemp.every(option => option.trim() !== '');
+    if (allOptionsSaved) {
+      this.question.opciones = [...this.opcionTemp];
+      this.optionsSaved.emit(true); // Emitir un valor booleano
+    } else {
+      alert('Por favor, guarda todas las opciones antes de continuar.');
+      this.optionsSaved.emit(false);
+    }
   }
 }
