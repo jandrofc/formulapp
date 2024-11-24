@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes, CanActivate } from '@angular/router';
 import { AuthGuard,RedirectIfAuth } from './guard/auth.guard';
 
 const routes: Routes = [
@@ -12,6 +12,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [RedirectIfAuth]
   },
   {
     path: 'registrar',
@@ -40,7 +41,10 @@ const routes: Routes = [
         path: 'misforms',
         loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
       },
-
+      {
+        path: 'mis-resp',
+        loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
+      }
     ],
     canActivate: [AuthGuard],
   },
@@ -79,16 +83,6 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    path: 'mis-resp',
-    loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
-  },
-
-
-
-
-
-
 
 ];
 
