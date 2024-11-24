@@ -12,7 +12,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    canActivate: [RedirectIfAuth],
   },
   {
     path: 'registrar',
@@ -33,6 +32,14 @@ const routes: Routes = [
         path: 'perfil',
         loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
       },
+        path: 'ver-forms',
+        loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
+      },
+      {
+        path: 'misforms',
+        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
+      },
+
     ],
     canActivate: [AuthGuard],
   },
@@ -44,16 +51,23 @@ const routes: Routes = [
         loadChildren: () => import('./pages/preparador/preparador.module').then(m => m.PreparadorPageModule)
       },
       {
-        path: 'misforms',
-        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
-      },
-      {
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
       },
       {
         path: 'perfil',
         loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+        path: 'preparador-forms',
+        loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then(m => m.PreparadorFormsPageModule)
+      },
+      {
+        path: 'detalles-forms/:id',
+        loadChildren: () => import('./pages/detalles-forms/detalles-forms.module').then( m => m.DetallesFormsPageModule)
+      },
+      {
+        path: 'compartir-forms/:id',
+        loadChildren: () => import('./pages/compartir-forms/compartir-forms.module').then( m => m.CompartirFormsPageModule)
       },
     ],
     canActivate: [AuthGuard],
@@ -63,6 +77,16 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+    path: 'mis-resp',
+    loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
+  },
+
+
+
+
+
+
 
 ];
 

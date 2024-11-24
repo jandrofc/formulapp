@@ -6,26 +6,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid class="form-list-container">
-    <ion-row *ngFor="let form of formularios">
-      <ion-col size="12">
-        <ion-card class="form-card">
-          <ion-card-header>
-            <ion-card-title>{{ form.form_name }}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p><strong>Respuestas:</strong> {{ form.cantitad_respuestas }}</p>
-            <div class="button-group">
-              <ion-button expand="block" fill="outline" color="primary" (click)="Estadisticas(form.id)">
-                Ver Detalles
-              </ion-button>
-              <ion-button expand="block" fill="outline" color="danger" (click)="eliminarFormulario(form.id)">
-                Eliminar
-              </ion-button>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <app-header></app-header>
+  <div class="contenedor-menu">
+    <div class="menu">
+      <ion-button [routerLink]="('/entrenado/ver-forms')" class="boton">Responder Formulario</ion-button>
+      <ion-button [routerLink]="('/entrenado/mis-resp')" class="boton">Respuestas de Formulario</ion-button>
+    </div>
+  </div>
 </ion-content>

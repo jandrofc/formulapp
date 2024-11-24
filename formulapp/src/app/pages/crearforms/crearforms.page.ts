@@ -54,12 +54,21 @@ export class CrearformsPage implements OnInit {
   }
 
   async crearFormulario() {
-    console.log('Formulario:', this.form);
-    this.formularioService.crearFormulario(this.form);
+    try {
+      const id = await this.formularioService.crearFormulario(this.form); // Crear formulario y obtener el ID
+      if (id) {
+        const link = `${window.location.origin}/ver-forms/${id}`; // Generar el link dinámicamente con el ID
+        console.log('Link del formulario:', link);
+
+        // Muestra el link al usuario
+        alert(`Formulario creado. Comparte este link: ${link}`);
+      } else {
+        throw new Error('No se pudo obtener el ID del formulario');
+      }
+    } catch (error) {
+      console.error('Error al crear el formulario:', error);
+      alert('Hubo un error al crear el formulario. Inténtalo de nuevo.');
+    }
   }
-
-
-
-
-
 }
+

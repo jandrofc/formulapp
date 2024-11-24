@@ -33,18 +33,6 @@ app-header {
 
 }
 
-ion-button {
-  margin-top: 20px; // Espacio entre los inputs y el botón
-  width: 60%; // Asegura que el botón ocupe todo el ancho disponible
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  --background: #0080ff;
-  --color: #000000;
-}
-
 ion-button.boton {
   display: flex;
   justify-content: center;
@@ -68,28 +56,4 @@ ion-button.boton:hover {
 
 ion-icon.icono {
   font-size: 40px;
-}
-
-.imagen{
-  display: flex;
-  justify-content: center;
-}
-.imagen-perfil{
-  width: 30%;
-  height: auto;
-}
-.editar-perfil{
-  width: 30px;
-  margin-left: -20px;
-  margin-top: 10px;
-  border-radius: 50%;
-}
-h1{
-  color:#ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 2rem;
 }

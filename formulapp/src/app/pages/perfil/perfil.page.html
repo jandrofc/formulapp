@@ -1,8 +1,20 @@
 <ion-content>
   <app-header></app-header>
+  <h1>Perfil</h1>
   <div class="imagen">
     <ion-img class="imagen-perfil" src="../../assets/img/sinregistro.png" alt="Asistencia"></ion-img>
-    <a ><ion-img class="editar-perfil" src="../../assets/img/editarPerfil.png"></ion-img></a>
   </div>
     <div class="contenedor-nombre-perfil"><p class="nombre-perfil"></p></div>
+    <form class="form" (submit)="guardarCambios()">
+      <ion-item>
+      <ion-input label="Nombre" labelPlacement="floating" [counter]="true" [(ngModel)]="nombre" name="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Correo Electronico" labelPlacement="floating" [value]="email" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Rol" labelPlacement="floating" [value]="rol" readonly></ion-input>
+      </ion-item>
+      <ion-button type="submit">Guardar cambios</ion-button>
+  </form>
 </ion-content>
