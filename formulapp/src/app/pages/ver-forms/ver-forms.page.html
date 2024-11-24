@@ -1,13 +1,11 @@
-<app-header></app-header>
-<ion-list *ngIf="formulariosCompartidos.length > 0">
-  <ion-item *ngFor="let formulario of formulariosCompartidos">
-    <ion-label>
-      <h2>{{ formulario.form_name }}</h2>
-      <p>{{ formulario.descripcion }}</p>
-    </ion-label>
-    <ion-button [routerLink]="['/ver-form', formulario.id]">Ver</ion-button>
-  </ion-item>
-</ion-list>
-<ion-card *ngIf="formulariosCompartidos.length === 0">
-  <ion-card-content>No tienes formularios compartidos.</ion-card-content>
-</ion-card>
+<ng-container *ngIf="formulariosCompartidos.length > 0">
+  <h2>Formularios Compartidos</h2>
+  <ul>
+    <li *ngFor="let formulario of formulariosCompartidos">
+      {{ formulario.form_name }}
+    </li>
+  </ul>
+</ng-container>
+<ng-container *ngIf="formulariosCompartidos.length === 0">
+  <p>No tienes formularios compartidos.</p>
+</ng-container>

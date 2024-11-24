@@ -128,22 +128,41 @@ export class FormularioService {
 
     async compartirFormulario(formId: string, correo: string): Promise<void> {
       try {
-        const docRef = await addDoc(this.form_respuestas, {
-          form_id: formId,
-          user_id: correo,
-          respuestas: [],
-        });
-        console.log('Documento compartido con ID:', docRef.id);
+        // Referencia al formulario
+        const formularioDoc = doc(this.firestore, `formularios/${formId}`);
+
+        // Obtén el formulario actual
+        const formularioSnap = await getDoc(formularioDoc);
+
+        if (formularioSnap.exists()) {
+          const formularioData = formularioSnap.data();
+
+          // Actualiza el array compartidoCon
+          const compartidoCon = formularioData['compartidoCon'] || [];
+          if (!compartidoCon.includes(correo)) {
+            compartidoCon.push(correo);
+            await updateDoc(formularioDoc, { compartidoCon });
+            console.log('Formulario actualizado y compartido con:', correo);
+          } else {
+            console.log('El correo ya tiene acceso al formulario.');
+          }
+        } else {
+          throw new Error('Formulario no encontrado.');
+        }
       } catch (error) {
         console.error('Error al compartir el formulario:', error);
         throw error;
-      }}
+      }
+    }
+
 
     async obtenerFormulariosCompartidos(email: string) {
       const formsRef = collection(this.firestore, 'formularios');
-      const q = query(formsRef, where('compartidos', 'array-contains', email));
+      const q = query(formsRef, where('compartidosCon', 'array-contains', email));
       const snapshot = await getDocs(q);
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
+
+
 }
 

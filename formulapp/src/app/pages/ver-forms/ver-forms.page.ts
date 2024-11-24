@@ -22,25 +22,32 @@ export class VerFormsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id'); // Obtén el ID del formulario de la URL
-    const user = await this.firebaseService.getCurrentUser(); // Asume que tienes un servicio para obtener el usuario autenticado
+    const id = this.route.snapshot.paramMap.get('id');
 
-    if (id) {
-      try {
-        this.formulario = await this.formularioService.obtenerFormularioPorId(id); // Carga el formulario
-        this.cargando = false;
-      } catch (error) {
-        console.error('Error al cargar el formulario:', error);
-        this.cargando = false;
-      }
-    }
-
+    // Primero, suscríbete al Observable para obtener el usuario
     this.firebaseService.getCurrentUser().subscribe(user => {
       if (user) {
-        this.formularioService.obtenerFormulariosCompartidos(user.email).then(formularios => {
+        // Ahora puedes acceder al correo del usuario
+        const email = user.email;
+
+        if (id) {
+          this.formularioService.obtenerFormularioPorId(id).then((formulario) => {
+            this.formulario = formulario;
+          }).catch((error) => {
+            console.error('Error al cargar el formulario:', error);
+          }).finally(() => {
+            this.cargando = false;
+          });
+        }
+
+        // Luego, obtienes los formularios compartidos con este usuario
+        this.formularioService.obtenerFormulariosCompartidos(email).then((formularios) => {
           this.formulariosCompartidos = formularios;
           console.log('Formularios compartidos:', this.formulariosCompartidos);
+        }).catch((error) => {
+          console.error('Error al obtener formularios compartidos:', error);
         });
+
       }
     });
   }
