@@ -1,0 +1,11 @@
+<ng-container *ngIf="formulariosCompartidos.length > 0">
+  <h2>Formularios Compartidos</h2>
+  <ul>
+    <li *ngFor="let formulario of formulariosCompartidos">
+      {{ formulario.form_name }}
+    </li>
+  </ul>
+</ng-container>
+<ng-container *ngIf="formulariosCompartidos.length === 0">
+  <p>No tienes formularios compartidos.</p>
+</ng-container>

@@ -6,19 +6,37 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item button [routerLink]="('')">
+
+      <!-- Botones Home -->
+      <ion-item *ngIf="rol === 'preparador'" button [routerLink]="('preparador')">
         <ion-icon slot="start" name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-item>
-      <ion-item button [routerLink]="('/perfil')">
+      <ion-item *ngIf="rol === 'entrenado'" button [routerLink]="('entrenado')">
+        <ion-icon slot="start" name="home"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-item>
+      <ion-item *ngIf="rol === 'entrenado'" button [routerLink]="('/entrenado/perfil')">
         <ion-icon slot="start" name="flash-outline"></ion-icon>
         <ion-label>Perfil</ion-label>
       </ion-item>
-      <ion-item button [routerLink]="('/crearforms')">
-        <ion-icon slot="start" name="newspaper-outline"></ion-icon>
+      <!-- Boton Perfil -->
+      <ion-item *ngIf="rol === 'preparador'" button [routerLink]="('/preparador/perfil')">
+        <ion-icon slot="start" name="flash-outline"></ion-icon>
+        <ion-label>Perfil</ion-label>
+      </ion-item>
+
+      <!-- Botones Preparador -->
+      <ion-item *ngIf="rol === 'preparador'" button [routerLink]="('/preparador/crearforms')">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
         <ion-label>Crear Formulario</ion-label>
       </ion-item>
-      <ion-item button [routerLink]="('/misforms')">
+      <ion-item *ngIf="rol === 'preparador'" button [routerLink]="('/preparador/preparador-forms')">
+        <ion-icon slot="start" name="newspaper-outline"></ion-icon>
+        <ion-label>Mis Formularios</ion-label>
+      </ion-item>
+      <!-- Botones Entrenado -->
+      <ion-item *ngIf="rol === 'entrenado'" button [routerLink]="('/entrenado/misforms')">
         <ion-icon slot="start" name="newspaper-outline"></ion-icon>
         <ion-label>Mis Formularios</ion-label>
       </ion-item>

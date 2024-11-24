@@ -2,7 +2,9 @@ export interface Formulario {
   form_name: string;
   descripcion: string;
   preguntas: Array<Preguntas>;
+  compartidoCon?: string[];
   user_id: string;
+  cantitad_respuestas: number;
 }
 export interface Respuestas {
   form_id: string;

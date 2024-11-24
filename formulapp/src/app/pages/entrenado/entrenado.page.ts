@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { home, flashlightOutline, newspaperOutline, logOut } from 'ionicons/icons';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-entrenado',
@@ -9,8 +10,14 @@ import { home, flashlightOutline, newspaperOutline, logOut } from 'ionicons/icon
 })
 export class EntrenadoPage implements OnInit {
 
-  constructor() { }
+  user: any = null;
 
-  ngOnInit() {addIcons({ home, flashlightOutline, newspaperOutline, logOut });}
+  constructor(private firebaseService: FirebaseService) { }
 
+  ngOnInit() {addIcons({ home, flashlightOutline, newspaperOutline, logOut });
+  this.firebaseService.authState$.subscribe((userData) => {
+    this.user = userData;
+    console.log('Datos completos del usuario:', this.user);
+  });
+  }
 }

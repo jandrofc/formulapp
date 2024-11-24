@@ -1,0 +1,13 @@
+<app-header></app-header>
+<ion-content class="ion-padding">
+  <h1>Compartir Formulario</h1>
+  <p>Ingresa el correo electrónico del entrenado para compartir el formulario.</p>
+
+  <form (ngSubmit)="compartirFormulario()">
+    <ion-item>
+      <ion-label position="stacked">Correo del Entrenado</ion-label>
+      <ion-input type="email" [(ngModel)]="correo" name="correoEntrenado" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit">Compartir</ion-button>
+  </form>
+</ion-content>

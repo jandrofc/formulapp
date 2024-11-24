@@ -1,0 +1,30 @@
+<app-header></app-header>
+<ion-content>
+  <ion-spinner *ngIf="cargando"></ion-spinner>
+
+  <ion-list *ngIf="!cargando && formularios.length > 0">
+    <ion-item *ngFor="let formulario of formularios">
+      <ion-label>
+        <h2>{{ formulario.form_name }}</h2>
+        <p>{{ formulario.descripcion }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/preparador/detalles-forms', formulario.id]">
+          Ver detalles
+        </ion-button>
+        <ion-button color="primary" [routerLink]="['/preparador/compartir-forms', formulario.id]">
+          Compartir
+        </ion-button>
+        <ion-button color="danger" (click)="eliminarFormulario(formulario.id)">
+          Eliminar
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="!cargando && formularios.length === 0">
+    <ion-card-content>
+      <p>No tienes formularios creados.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,21 @@
+<ion-content *ngIf="!cargando">
+  <ion-list *ngIf="formularios.length > 0; else sinFormularios">
+    <ion-item *ngFor="let form of formularios">
+      <ion-label>
+        <h2>{{ form.form_name }}</h2>
+        <p>{{ form.descripcion }}</p>
+      </ion-label>
+      <ion-button [routerLink]="['/respuestas', form.id]" color="primary">
+        Ver respuestas
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinFormularios>
+    <ion-card>
+      <ion-card-content>
+        <p>No has respondido ningún formulario.</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
