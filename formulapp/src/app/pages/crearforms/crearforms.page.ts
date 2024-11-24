@@ -26,6 +26,7 @@ export class CrearformsPage implements OnInit {
     opciones: []
   };
 
+  opcionesGuardadas = false;
   tipo_formularios: any[] = [];
 
   ngOnInit() {
@@ -46,7 +47,15 @@ export class CrearformsPage implements OnInit {
 
   }
 
+  onOptionsSaved(saved: boolean) {
+    this.opcionesGuardadas = saved;
+  }
+
   async agregarPregunta() {
+    if (this.Pregunta.tipo === 'Opcion multiple' && !this.opcionesGuardadas) {
+      alert('Por favor, guarda las opciones antes de agregar una nueva pregunta.');
+      return;
+    }
     if (this.Pregunta.texto.trim() !== '') {
       this.form.preguntas.push({ ...this.Pregunta }); // Agrega la pregunta al formulario
       this.Pregunta = { texto: '', tipo: '', opciones: [] }; // Limpia el objeto de pregunta

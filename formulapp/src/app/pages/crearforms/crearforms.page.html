@@ -40,14 +40,15 @@
       <ng-container [ngSwitch]="Pregunta.tipo">
         <!-- Componente para preguntas de tipo texto -->
         <app-text
-          *ngSwitchCase="'Pregunta abierta'"
+          *ngSwitchCase="'Respuesta abierta'"
           [(question)]="Pregunta">
         </app-text>
 
         <!-- Componente para preguntas de tipo select -->
         <app-select-one
           *ngSwitchCase="'Opcion multiple'"
-          [(question)]="Pregunta">
+          [(question)]="Pregunta"
+          (optionsSaved)="onOptionsSaved($event)">
         </app-select-one>
       </ng-container>
 
