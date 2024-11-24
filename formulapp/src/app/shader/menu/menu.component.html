@@ -16,9 +16,12 @@
         <ion-icon slot="start" name="home"></ion-icon>
         <ion-label>Inicio</ion-label>
       </ion-item>
-
+      <ion-item *ngIf="rol === 'entrenado'" button [routerLink]="('/entrenado/perfil')">
+        <ion-icon slot="start" name="flash-outline"></ion-icon>
+        <ion-label>Perfil</ion-label>
+      </ion-item>
       <!-- Boton Perfil -->
-      <ion-item button [routerLink]="('/perfil')">
+      <ion-item *ngIf="rol === 'preparador'" button [routerLink]="('/preparador/perfil')">
         <ion-icon slot="start" name="flash-outline"></ion-icon>
         <ion-label>Perfil</ion-label>
       </ion-item>
