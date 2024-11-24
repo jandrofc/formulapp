@@ -5,9 +5,9 @@
 
 <ion-item *ngFor="let opcion of question.opciones; let i = index">
   <ion-label position="stacked">Opción {{ i + 1 }}</ion-label>
-  <ion-input [(ngModel)]="opcionTemp[i]" placeholder="Escribe la opción"></ion-input>
-  <ion-button color="primary" (click)="onOptionChange(opcionTemp[i], i)">Guardar</ion-button>
+  <ion-input [(ngModel)]="opcionTemp[i]" (ionChange)="onOptionChange(opcionTemp[i], i)" placeholder="Escribe la opción"></ion-input>
   <ion-button color="danger" (click)="removeOption(i)">Eliminar</ion-button>
 </ion-item>
 
 <ion-button expand="block" (click)="addOption()">Agregar Opción</ion-button>
+<ion-button expand="block" color="success" (click)="saveOptions()">Guardar Opciones</ion-button>
