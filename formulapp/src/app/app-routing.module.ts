@@ -32,6 +32,7 @@ const routes: Routes = [
         path: 'perfil',
         loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
       },
+      {
         path: 'ver-forms',
         loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
       },
@@ -58,6 +59,7 @@ const routes: Routes = [
         path: 'perfil',
         loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
       },
+      {
         path: 'preparador-forms',
         loadChildren: () => import('./pages/preparador-forms/preparador-forms.module').then(m => m.PreparadorFormsPageModule)
       },
