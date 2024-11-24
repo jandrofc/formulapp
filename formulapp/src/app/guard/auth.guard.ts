@@ -4,6 +4,7 @@ import { Observable,from } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { FirebaseService } from '../services/firebase.service';
 import { user } from '@angular/fire/auth';
+import { ExceptionCode } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -11,44 +12,40 @@ import { user } from '@angular/fire/auth';
 export class AuthGuard implements CanActivate {
   constructor(private authService: FirebaseService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Promise<boolean>{
-    console.log('AUTHGUARD ACTIVADO');
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const requestedUrl = state.url;
-    console.log('CURRENTURL',requestedUrl);
-    return this.authService.checkUserAuth().then((user) => {
-      console.log('AUTHGUARD USER',user);
-      console.log('AUTHGUARD LOCALSTORAGE',localStorage.getItem('authtoken'));
-      console.log('!user && !localStorage',!user && !localStorage.getItem('authtoken'));
-      console.log('--------------------------')
-      if (!user && !localStorage.getItem('authtoken')) {
-        this.router.navigate(['/login']);
-        return false;
-      } else {
-        this.authService.authState$.subscribe((user)=>{
-          console.log("user.rol!='preparador' && currentUrl.startsWith('/preparador')",user.rol!='preparador' && requestedUrl.startsWith('/preparador'))
-          console.log("user.rol!='entrenado' && currentUrl.startsWith('/entrenado')",user.rol!='entrenado' && requestedUrl.startsWith('/entrenado'))
-          console.log('ROL',user.rol);
-          console.log('CURRENTURL',requestedUrl);
-          if (user.rol!='preparador' && requestedUrl.startsWith('/preparador')) {
-            this.router.navigate(['/',user.rol]);
+    return this.authService.authState$.pipe(
+      map(user => {
+        if (user) {
+          if (user.rol === 'preparador') {
+            if (requestedUrl.startsWith('/preparador')) {
+              return true;
+            } else {
+              this.router.navigate(['/preparador']);
+              return false;
+            }
+          } else if (user.rol === 'entrenado') {
+            if (requestedUrl.startsWith('/entrenado')) {
+              return true;
+            } else {
+              this.router.navigate(['/entrenado']);
+              return false;
+            }
+          } else {
+            console.log('Desconectando usuario');
+            this.authService.logout();
             return false;
           }
-          else if(user.rol!='entrenado' && requestedUrl.startsWith('/entrenado')){
-            this.router.navigate(['/',user.rol]);
-            return false;
-          }
-          else{
-            console.log('ENTRA EN ELSE de authstate');
-
-            return true;
-          }
-          });
+        } else {
+          this.router.navigate(['/login']);
+          return false;
         }
-        console.log('ENTRA EN ELSE de checkUserAuth');
-        return true;
-      });
-      }
+      })
+    );
+  }
+
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -56,21 +53,28 @@ export class AuthGuard implements CanActivate {
 export class RedirectIfAuth implements CanActivate {
   constructor(private authService: FirebaseService, private router: Router) {}
 
-   canActivate(){
-    console.log('REDIRECTIF ACTIVADO');
-    return this.authService.checkUserAuth().then((user) => {
-      console.log('REDIRECTIF USER',user);
-      console.log('REDIRECTIF LOCALSTORAGE',localStorage.getItem('authtoken'));
-      console.log('------------------------------')
-      if (user || localStorage.getItem('authtoken')) {
-        this.authService.authState$.subscribe((user)=>{
-          console.log('ROL',user.rol);
-            this.router.navigate(['/',user.rol]);
-        });
-        return false;
-      } else {
-        return true;
-      }
-    });
+  canActivate(){;
+
+    this.authService.authState$.pipe().subscribe((user)=>{
+    if (user)  {
+      if(user.rol=='preparador'){
+          this.router.navigate(['/preparador']);
+          return false;
+        }
+        else if(user.rol=='entrenado'){
+          this.router.navigate(['/entrenado']);
+          return false;
+        }
+        else{
+          if(user.rol!='preparador' && user.rol!='entrenado'){
+            this.authService.logout();
+            return true;
+          }
+        }
+    }
+    return true;
+  });
+  return true;
+  }
 }
-}
+

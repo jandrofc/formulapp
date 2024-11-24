@@ -24,7 +24,16 @@ const routes: Routes = [
   },
   {
     path: 'entrenado',
-    loadChildren: () => import('./pages/entrenado/entrenado.module').then( m => m.EntrenadoPageModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/entrenado/entrenado.module').then(m => m.EntrenadoPageModule)
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+    ],
     canActivate: [AuthGuard],
   },
   {
@@ -41,16 +50,19 @@ const routes: Routes = [
       {
         path: 'crearforms',
         loadChildren: () => import('./pages/crearforms/crearforms.module').then(m => m.CrearformsPageModule)
-      }
+      },
+      {
+        path: 'perfil',
+        loadChildren: () => import('./pages/perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
     ],
     canActivate: [AuthGuard],
   },
   {
-    path: 'perfil',
-    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
-    canActivate: [AuthGuard],
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
-
 
 ];
 
