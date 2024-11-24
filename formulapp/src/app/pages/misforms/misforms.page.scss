@@ -57,3 +57,28 @@ ion-button.boton:hover {
 ion-icon.icono {
   font-size: 40px;
 }
+
+.form-list-container {
+  padding: 16px;
+}
+
+.form-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-card ion-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.form-card p {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #666;
+}
+
+ion-button {
+  margin-top: 8px;
+}

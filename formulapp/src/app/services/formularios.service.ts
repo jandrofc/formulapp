@@ -30,7 +30,7 @@ export class FormularioService {
   // Obtener todos los formularios de un usuario
   async obtenerFormulariosPorUsuario(userId: string): Promise<any[]> {
     try {
-      const q = query(this.formulariosCollection, where('userId', '==', userId));
+      const q = query(this.formulariosCollection, where('user_id', '==', userId));
       const querySnapshot = await getDocs(q);
 
       return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));

@@ -17,7 +17,8 @@ export class CrearformsPage implements OnInit {
     form_name: '',
     descripcion: '',
     preguntas: [],
-    user_id: ''
+    user_id: '',
+    cantitad_respuestas: 0
   };
   Pregunta: Preguntas = {
     texto: '',
@@ -27,18 +28,18 @@ export class CrearformsPage implements OnInit {
 
   tipo_formularios: any[] = [];
 
-  async ngOnInit() {
+  ngOnInit() {
 
     this.FirebaseService.authState$.subscribe(user => {
       if (user) {
         this.form.user_id = user.uid;
       }
     });
-
-
     try {
-      this.tipo_formularios = await this.formularioService.obtenerTiposDeFormulario();
-      console.log('Tipos de formulario:', this.tipo_formularios);
+      this.formularioService.obtenerTiposDeFormulario().then(tipos => {
+        this.tipo_formularios = tipos;
+        console.log('Tipos de formulario:', this.tipo_formularios);
+      });
     } catch (error) {
       console.error('Error al obtener tipos de formulario:', error);
     }
