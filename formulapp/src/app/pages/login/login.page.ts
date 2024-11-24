@@ -1,16 +1,20 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { User } from '../models/user.models';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Router } from '@angular/router';
-
+import { user } from '@angular/fire/auth';
+import { distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage   {
+export class LoginPage  {
+
+
+  user: any = null;
 
   email: string = '';
   password: string = '';
@@ -24,29 +28,34 @@ export class LoginPage   {
   firestore = inject(FirestoreService)
   router = inject(Router)
 
+  ngOnInit() {
+    // Suscribirse a los datos completos del usuario
+    this.firebase.authState$.pipe(distinctUntilChanged()).subscribe((userData) => {
+      this.user = userData;
+      console.log('login page Datos del usuario:', this.user);
+    });
+  }
+
+
+
   async loginUser() {
     try {
       // Iniciar sesión
-      const userCredential = await this.firebase.login(this.email, this.password);
-
-      // Obtener el UID del usuario autenticado
-      const uid = userCredential.user?.uid;
-
-      // Obtener el rol del usuario desde Firestore
-      const userData = await this.firestore.getUser(uid);
-      const rol = userData ? userData['rol'] : null;
-
-      // Redirigir según el rol
-      if (rol === 'entrenador') {
-        this.router.navigate(['/preparador']);
-      } else if (rol === 'entrenado') {
-        this.router.navigate(['/entrenado']);
-      } else {
-        console.error('Rol desconocido:', rol);
+      if (await this.firebase.login(this.email, this.password)) {
+        this.firebase.iniciarSesion();
+        await this.firebase.authState$.subscribe(user => {
+          if (user.rol=='preparador' || user.rol=='entrenado') {
+            this.router.navigate([`/${user.rol}`]);
+          }
+          else{
+            this.firebase.logout();
+            this.error = 'Sus credenciales no son válidas';
+            throw new Error('Credenciales no válidas');
+          }});
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       this.error = this.firebase.GenerarError(error);
     }
-   }
-   }
+  }
+}
