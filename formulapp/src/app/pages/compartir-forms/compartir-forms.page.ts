@@ -28,15 +28,19 @@ export class CompartirFormsPage implements OnInit {
       alert('Por favor, ingresa un correo válido.');
       return;
     }
-
     try {
-      // Lógica para compartir el formulario
-      await this.formularioService.compartirFormulario(this.formId, this.correo);
-      alert('Formulario compartido exitosamente.');
+      if(!await this.formularioService.verificarCorreoExistente(this.correo)){
+        alert('El correo ingresado no existe.');
+        return;
+      }
+      else{
+        await this.formularioService.compartirFormulario(this.formId, this.correo);
       this.router.navigate(['/preparador/preparador-forms']); // Redirige a la lista de formularios
-    } catch (error) {
-      console.error('Error al compartir el formulario:', error);
-      alert('Hubo un problema al compartir el formulario.');
+      }
+    }
+    catch (error) {
+        console.error('Error al compartir el formulario:', error);
+        alert('Hubo un problema al compartir el formulario.');
     }
   }
 }
