@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VerFormsPageRoutingModule } from './ver-forms-routing.module';
+import { CompartirFormsPageRoutingModule } from './compartir-forms-routing.module';
 
-import { VerFormsPage } from './ver-forms.page';
+import { CompartirFormsPage } from './compartir-forms.page';
 import { ShaderModule } from "../../shader/shader.module";
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ShaderModule } from "../../shader/shader.module";
     CommonModule,
     FormsModule,
     IonicModule,
-    VerFormsPageRoutingModule,
+    CompartirFormsPageRoutingModule,
     ShaderModule
 ],
-  declarations: [VerFormsPage]
+  declarations: [CompartirFormsPage]
 })
-export class VerFormsPageModule {}
+export class CompartirFormsPageModule {}

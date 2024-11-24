@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from 'src/app/services/formularios.service';
 import { Formulario } from '../models/form.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-ver-forms',
@@ -12,14 +13,17 @@ export class VerFormsPage implements OnInit {
   formulario: Formulario | null = null;
   cargando = true;
   respuestas = [];
+  formulariosCompartidos: Array<any> = [];
 
   constructor(
     private route: ActivatedRoute,
-    private formularioService: FormularioService
+    private formularioService: FormularioService,
+    private firebaseService: FirebaseService
   ) {}
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id'); // Obtén el ID del formulario de la URL
+    const user = await this.firebaseService.getCurrentUser(); // Asume que tienes un servicio para obtener el usuario autenticado
 
     if (id) {
       try {
@@ -30,5 +34,14 @@ export class VerFormsPage implements OnInit {
         this.cargando = false;
       }
     }
+
+    this.firebaseService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.formularioService.obtenerFormulariosCompartidos(user.email).then(formularios => {
+          this.formulariosCompartidos = formularios;
+          console.log('Formularios compartidos:', this.formulariosCompartidos);
+        });
+      }
+    });
   }
 }

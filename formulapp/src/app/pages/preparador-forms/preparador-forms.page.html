@@ -12,6 +12,9 @@
         <ion-button color="primary" [routerLink]="['/preparador/detalles-forms', formulario.id]">
           Ver detalles
         </ion-button>
+        <ion-button color="primary" [routerLink]="['/preparador/compartir-forms', formulario.id]">
+          Compartir
+        </ion-button>
         <ion-button color="danger" (click)="eliminarFormulario(formulario.id)">
           Eliminar
         </ion-button>

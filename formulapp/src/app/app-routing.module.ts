@@ -29,7 +29,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/entrenado/entrenado.module').then(m => m.EntrenadoPageModule)
       },
       {
-        path: 'ver-forms/:id',
+        path: 'ver-forms',
         loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
       },
       {
@@ -59,6 +59,10 @@ const routes: Routes = [
         path: 'detalles-forms/:id',
         loadChildren: () => import('./pages/detalles-forms/detalles-forms.module').then( m => m.DetallesFormsPageModule)
       },
+      {
+        path: 'compartir-forms/:id',
+        loadChildren: () => import('./pages/compartir-forms/compartir-forms.module').then( m => m.CompartirFormsPageModule)
+      },
     ],
     canActivate: [AuthGuard],
   },
@@ -67,6 +71,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'mis-resp',
+    loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
+  },
+
+
 
 
 

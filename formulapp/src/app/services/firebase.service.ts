@@ -91,4 +91,8 @@ export class FirebaseService {
   });
   }
 
+  getCurrentUser() {
+    return this.authState$.pipe(map(user => user));
+  }
+
 }

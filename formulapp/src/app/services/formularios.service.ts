@@ -105,5 +105,45 @@ export class FormularioService {
         throw error;
       }
     }
+
+    async obtenerFormulariosRespondidos(userId: string): Promise<any[]> {
+      try {
+        const q = query(this.form_respuestas, where('user_id', '==', userId));
+        const querySnapshot = await getDocs(q);
+
+        const formularios: any[] = [];
+        for (const doc of querySnapshot.docs) {
+          const respuesta = doc.data();
+          const formulario = await this.obtenerFormularioPorId(respuesta['form_id']);
+          if (formulario) {
+            formularios.push({ ...formulario, id: doc.id });
+          }
+        }
+        return formularios;
+      } catch (error) {
+        console.error('Error al obtener formularios respondidos:', error);
+        throw error;
+      }
+    }
+
+    async compartirFormulario(formId: string, correo: string): Promise<void> {
+      try {
+        const docRef = await addDoc(this.form_respuestas, {
+          form_id: formId,
+          user_id: correo,
+          respuestas: [],
+        });
+        console.log('Documento compartido con ID:', docRef.id);
+      } catch (error) {
+        console.error('Error al compartir el formulario:', error);
+        throw error;
+      }}
+
+    async obtenerFormulariosCompartidos(email: string) {
+      const formsRef = collection(this.firestore, 'formularios');
+      const q = query(formsRef, where('compartidos', 'array-contains', email));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
 }
 
