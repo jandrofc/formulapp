@@ -48,3 +48,35 @@ ion-button:disabled {
   --background: var(--ion-color-medium);
   --color: var(--ion-color-light);
 }
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #19d7f9;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-spinner {
+  width: 80px;
+  height: 80px;
+  color: #ffffff;
+}
+
+.loading-text {
+  margin-top: 16px;
+  font-size: 18px;
+  color: #ffffff;
+}

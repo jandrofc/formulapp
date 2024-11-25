@@ -1,6 +1,11 @@
 <app-header></app-header>
 <ion-content>
-  <ion-spinner *ngIf="cargando"></ion-spinner>
+  <div *ngIf="cargando" class="loading-overlay">
+    <div class="loading-container">
+      <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+      <p class="loading-text" style="font-size: larger; font-weight: bold;">Cargando datos...</p>
+    </div>
+  </div>
 
   <ion-list *ngIf="!cargando && formularios.length > 0">
     <ion-item *ngFor="let formulario of formularios">

@@ -14,6 +14,8 @@ export class FirebaseService {
 
   private authStateSubject = new BehaviorSubject<any>(null);
   authState$ = this.authStateSubject.asObservable();
+  private AuthResponseSubject = new BehaviorSubject<any>(false);
+  authResponse$ = this.AuthResponseSubject.asObservable();
   auth = inject(Auth);
   constructor(private afAuth: Auth, private firestoreService: FirestoreService,private Router: Router) {
     this.iniciarSesion();
@@ -31,9 +33,13 @@ export class FirebaseService {
           ...userData,  // Combinar los datos de autenticación con los datos adicionales
         };
         this.authStateSubject.next(fullUserData);  // Emitir todos los datos
+        console.log('Usuario autenticado:', fullUserData);
+        this.AuthResponseSubject.next(true);
       } else {
         // Si no hay usuario autenticado, emitir null
+        console.log('No hay usuario autenticado');
         this.authStateSubject.next(null);
+        this.AuthResponseSubject.next(true);
       }
     });
   }
