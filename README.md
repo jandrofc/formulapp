@@ -12,3 +12,8 @@ firebase login
 ionic build --prod
 firebase init
 firebase deploy --only hosting
+
+
+npm install @capacitor/android
+npx cap add android
+npx cap open android
