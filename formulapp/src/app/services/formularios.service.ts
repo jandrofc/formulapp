@@ -182,5 +182,16 @@ export class FormularioService {
       const snapshot = await getDocs(q);
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
+
+
+
+    async agregarRespuesta(data: any): Promise<void> {
+      try {
+        await addDoc(collection(this.firestore,'form_respuestas'), data); // Agrega el formulario
+      } catch (error) {
+        console.error('Error al crear el formulario:', error);
+        throw error;
+      }
+    }
 }
 

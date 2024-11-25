@@ -10,6 +10,7 @@ export interface Respuestas {
   form_id: string;
   respuestas: Array<any>;
   user_id: string;
+  username: string;
 }
 export interface Preguntas {
   texto: string;

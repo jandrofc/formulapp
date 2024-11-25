@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../pages/models/user.models';
-import { Firestore, doc, setDoc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, getDoc, updateDoc,addDoc,collection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +28,5 @@ export class FirestoreService {
   async updateUser(userId: string, data: any): Promise<void> {
     const userRef = doc(this.firestore, 'users', userId);
     await updateDoc(userRef, data);
-  }
-
-  async agregarDocumento(coleccion: string, data: any): Promise<void> {
-    const docRef = doc(this.firestore, coleccion);
-    await setDoc(docRef, data);
   }
 }

@@ -4,7 +4,7 @@ import { FormularioService } from 'src/app/services/formularios.service';
 import { Formulario } from '../models/form.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
-
+import { Respuestas } from '../models/form.model';
 @Component({
   selector: 'app-responder-formulario',
   templateUrl: './responder-formulario.page.html',
@@ -13,19 +13,23 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class ResponderFormularioPage implements OnInit {
 
   InformacionForm: any;
+  cargando = true;
+  Respuestas : Respuestas = {
+    form_id: '',
+    respuestas: [],
+    user_id: '',
+    username: '',
+  };
 
   constructor(private formularioService: FormularioService,
     private Router: Router,
     private DinamicRouter: ActivatedRoute,
     private firebaseService: FirebaseService,
-    private firestoreService: FirestoreService) {
+    private FormularioService: FormularioService,) {
   }
 
 
-
   ngOnInit() {
-    const id = this.DinamicRouter.snapshot.paramMap.get('id');
-
     this.formularioService.formulario$.pipe().subscribe((formulario)=>{
       if (formulario) {
         this.InformacionForm = formulario;
@@ -33,36 +37,36 @@ export class ResponderFormularioPage implements OnInit {
 
       }
     });
+
   }
 
   async enviarFormulario() {
+    try {
+      // Obtener el usuario actual
     this.firebaseService.getCurrentUser().subscribe(user => {
       if (!user) {
         console.error('Usuario no autenticado.');
         return;
       }
+    this.Respuestas.user_id = user.uid;
+    this.Respuestas.form_id = this.InformacionForm.id;
+    this.Respuestas.username = user.nombre || user.email || 'Usuario';
 
       // Preparar las respuestas
-      const respuestas = this.InformacionForm.preguntas.map((pregunta: any) => {
+      this.Respuestas.respuestas = this.InformacionForm.preguntas.map((pregunta: any) => {
         return {
           pregunta: pregunta.texto,
           respuesta: pregunta.selectedOption || '', // Usar la opción seleccionada o dejar vacío
         };
       });
 
-      // Crear el objeto de respuesta
-      const formRespuesta = {
-        form_id: this.InformacionForm.id, // ID del formulario
-        respuestas, // Respuestas recopiladas
-        user_id: user.uid, // ID del usuario actual
-      };
 
       // Guardar en Firestore
-      await this.firestoreService.agregarDocumento('form_respuestas', formRespuesta);
+      this.FormularioService.agregarRespuesta(this.Respuestas,);
 
       // Confirmar éxito
-      console.log('Respuestas enviadas correctamente:', formRespuesta);
-    })
+      console.log('Respuestas enviadas correctamente:', this.Respuestas);
+    })}
      catch (error) {
       console.error('Error al enviar las respuestas:', error);
     }}
