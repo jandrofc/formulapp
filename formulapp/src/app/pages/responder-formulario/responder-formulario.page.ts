@@ -66,6 +66,7 @@ export class ResponderFormularioPage implements OnInit {
 
       // Confirmar éxito
       console.log('Respuestas enviadas correctamente:', this.Respuestas);
+      this.Router.navigate(['/entrenado']);
     })}
      catch (error) {
       console.error('Error al enviar las respuestas:', error);

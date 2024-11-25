@@ -19,10 +19,9 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Rol</ion-label>
-      <ion-select [(ngModel)]="userData.rol" name="rol">
-        <ion-select-option value="entrenador">Entrenador</ion-select-option>
-        <ion-select-option value="entrenado">Entrenado</ion-select-option>
+      <ion-select [(ngModel)]="userData.rol" name="rol" labelPlacement="floating" label="Escoja su rol">
+        <ion-select-option value="entrenador">preparador</ion-select-option>
+        <ion-select-option value="entrenado">entrenado</ion-select-option>
       </ion-select>
     </ion-item>
 

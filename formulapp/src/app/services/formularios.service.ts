@@ -201,8 +201,8 @@ export class FormularioService {
         const q = query(RespuestasRef, where('form_id', '==', formId));
         const snapshot = await getDocs(q);
         if (snapshot.empty) {
+          return FormularioData;
           alert('No hay respuestas para este formulario');
-          return;
         }
         const FormRespuestas=snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         FormularioData['respuestas']=FormRespuestas;

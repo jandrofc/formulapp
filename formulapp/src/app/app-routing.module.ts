@@ -76,7 +76,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/detalles-forms/detalles-forms.module').then( m => m.DetallesFormsPageModule)
       },
       {
-        path: 'compartir-forms',
+        path: 'compartir-forms/:id',
         loadChildren: () => import('./pages/compartir-forms/compartir-forms.module').then( m => m.CompartirFormsPageModule)
       },
     ],
