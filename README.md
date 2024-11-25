@@ -9,5 +9,6 @@ npm install firebase@10.7.2 --save (paquetes)
 npm install firebase
 npm install -g firebase-tools
 firebase login
+ionic build --prod
 firebase init
 firebase deploy --only hosting
