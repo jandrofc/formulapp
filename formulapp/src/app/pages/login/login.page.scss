@@ -33,11 +33,11 @@ ion-content {
 }
 
 .logo {
-  width: 100px; // Ajusta el tamaño del logo según sea necesario
-  height: auto;
-  margin-right: 10px; // Añade un margen a la derecha para separar el logo del texto
+  height: 100%; /* Asegura que la imagen tenga la misma altura que el encabezado */
+  width: auto; /* Mantiene las proporciones de la imagen */
+  max-width: 50px; /* Tamaño máximo de ancho */
+  object-fit: contain; /* Escala la imagen sin recortarla */
 }
-
 .titulo {
   font-size: 1.5rem; // Ajusta el tamaño del texto según sea necesario
   color: #ffbf00; // Cambia el color del texto si es necesario
