@@ -25,9 +25,11 @@
         </ion-item>
         </ion-radio-group>
       </ion-list>
+      <ion-item *ngIf="pregunta.tipo === 'Respuesta abierta'">
+        <ion-input [(ngModel)]="pregunta.selectedOption" placeholder="Escribe tu respuesta"></ion-input>
+    </ion-item>
     </ion-item>
   </ion-list>
-
   <ion-footer>
     <ion-toolbar>
       <ion-buttons slot="end">

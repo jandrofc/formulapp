@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormularioService } from 'src/app/services/formularios.service';
 import { Formulario } from '../models/form.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import { Respuestas } from '../models/form.model';
 @Component({
   selector: 'app-responder-formulario',
