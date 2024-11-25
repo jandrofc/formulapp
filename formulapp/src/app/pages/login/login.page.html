@@ -1,41 +1,55 @@
-<app-header></app-header>
-<ion-content >
-
-  <div class="d-flex-center">
-  <form [formGroup]="form" class="auth-form">
-
-    <app-custom-input
-    autocomplete="email"
-    icon="mail-outline"
-    [control]="form.controls.email"
-    type="email"
-    label="Correo"
-    ></app-custom-input>
-
-    <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
-      <div *ngIf="form.controls.email.errors?.['required']">Correo requerido</div>
-      <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
-    </div>
-
-
-    <app-custom-input
-    autocomplete="email"
-    icon="lock-closed-outline"
-    [control]="form.controls.password"
-    type="password"
-    label="Contraseña"
-    ></app-custom-input>
-    <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
-      <div *ngIf="form.controls.password.errors?.['required']">Contraseña requerida</div>
-    </div>
-
-    <ion-button
-    (click)="submit()"
-    expand="block" fill="clear" node="ios" class="submit">
-      Ingresar
-    </ion-button>
-
-  </form>
+<ion-content>
+  <div class="cabecera">
+    <span class="titulo"></span>
+    <ion-img class="logo" src="" alt=""></ion-img>
   </div>
 
+  <div class="form">
+    <h1>Iniciar Sesión</h1>
+    <form (ngSubmit)="loginUser()">
+      <ion-item>
+        <ion-input
+          label="Correo Electrónico"
+          labelPlacement="floating"
+          [counter]="true"
+          maxlength="50"
+          [(ngModel)]="email"
+          name="email">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="password"
+          label="Contraseña"
+          labelPlacement="floating"
+          [counter]="true"
+          maxlength="50"
+          [(ngModel)]="password"
+          name="password">
+        </ion-input>
+      </ion-item>
+
+      <div>
+        <a [routerLink]="('/password')">Recuperar Contraseña</a>
+      </div>
+
+      <ion-button expand="block" type="submit">Ingresar</ion-button>
+        <div *ngIf="isLogging"class="loading-container">
+          <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+        </div>
+      <div *ngIf="error">
+        <p>{{error}}</p>
+      </div>
+    </form>
+    <a [routerLink]="('/registrar')">Registrarse</a>
+  </div>
+
+  <!-- Spinner para mostrar el estado de carga -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-container">
+      <ion-spinner name="crescent" class="custom-spinner"></ion-spinner>
+      <p class="loading-text" style="font-size: larger; font-weight: bold;">Cargando datos...</p>
+    </div>
+  </div>
 </ion-content>

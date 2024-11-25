@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from './../../services/firebase.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent  implements OnInit {
 
-  constructor() { }
+  user: any = null;
 
-  ngOnInit() {}
+  constructor(
+    private MenuCtrl: MenuController,
+    private firebaseService: FirebaseService,
+    private router: Router
+  ) { }
+
+  onClick()
+  {
+    this.MenuCtrl.toggle();
+  }
+
+  ngOnInit() {
+    // Suscribirse a los datos completos del usuario
+    this.firebaseService.authState$.pipe(distinctUntilChanged()).subscribe((userData) => {
+      this.user = userData;
+      console.log('Header Datos completos del usuario:', this.user);
+    });
+  }
+  logout() {
+    this.firebaseService.logout();
+  }
 
 }

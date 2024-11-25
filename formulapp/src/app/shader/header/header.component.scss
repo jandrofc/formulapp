@@ -1,0 +1,43 @@
+.cabecera {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #19d7f9; // Color del fondo del header
+  color:#000000;
+}
+
+.menu-button {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  height: auto;
+  margin-bottom: 10px; // Añade un margen abajo para separar el logo del texto
+  margin-right: 10px; // Añade un margen a la izquierda para separar el logo del texto
+}
+
+.power-button {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.power-button .boton-texto {
+  font-size: 12px;
+}
+
+.power-button ion-icon {
+  font-size: 30px;
+}
+
+.titulo {
+  font-size: 1.8rem; // Ajusta el tamaño del texto según sea necesario
+  color: #ffbf00; // Cambia el color del texto a negro
+  margin-left: 10px;
+}

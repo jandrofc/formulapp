@@ -1,0 +1,13 @@
+<ion-item>
+  <ion-label position="stacked">Pregunta</ion-label>
+  <ion-input [(ngModel)]="question.texto" placeholder="Escribe la pregunta"></ion-input>
+</ion-item>
+
+<ion-item *ngFor="let opcion of question.opciones; let i = index">
+  <ion-label position="stacked">Opción {{ i + 1 }}</ion-label>
+  <ion-input [(ngModel)]="opcionTemp[i]" (ionChange)="onOptionChange(opcionTemp[i], i)" placeholder="Escribe la opción"></ion-input>
+  <ion-button color="danger" (click)="removeOption(i)">Eliminar</ion-button>
+</ion-item>
+
+<ion-button expand="block" (click)="addOption()">Agregar Opción</ion-button>
+<ion-button expand="block" color="success" (click)="saveOptions()">Guardar Opciones</ion-button>

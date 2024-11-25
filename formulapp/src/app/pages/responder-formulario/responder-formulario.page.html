@@ -1,0 +1,38 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Formulario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ InformacionForm.form_name }}</ion-card-title>
+      <ion-card-subtitle>{{ InformacionForm.descripcion }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let pregunta of InformacionForm.preguntas; let i = index">
+      <ion-label class="pregunta-label">
+        <h2>{{ i + 1 }}. {{ pregunta.texto }}</h2>
+      </ion-label>
+      <ion-list class="opciones-lista" *ngIf="pregunta.tipo === 'Opcion multiple'">
+        <ion-radio-group [(ngModel)]="pregunta.selectedOption">
+        <ion-item *ngFor="let opcion of pregunta.opciones" lines="none" class="opcion-item">
+          <ion-radio slot="start" [value]="opcion"></ion-radio>
+          <ion-label>{{ opcion }}</ion-label>
+        </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-item>
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button color="primary" expand="full" (click)="enviarFormulario()">Enviar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
