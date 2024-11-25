@@ -15,19 +15,16 @@
   </ion-header>
 
   <ion-list *ngIf="formulariosCompartidos.length > 0; else noFormularios">
-    <ion-item *ngFor="let formulario of formulariosCompartidos">
+    <ion-item *ngFor="let formulario of formulariosCompartidos; let i = index">
       <ion-label>
         <h2>{{ formulario.form_name }}</h2>
         <p>
-          <ion-text color="success" *ngIf="formulario.respondido">(Respondido)</ion-text>
-          <ion-text color="danger" *ngIf="!formulario.respondido">(Sin responder)</ion-text>
+          <ion-text color="success" *ngIf="respuestas[i]">(Respondido)</ion-text>
+          <ion-text color="danger" *ngIf="!respuestas[i]">(Sin responder)</ion-text>
         </p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button color="primary" (click)="responderFormulario(formulario)">Responder</ion-button>
-        <ion-button color="secondary" [disabled]="!formulario.respondido" (click)="verRespuestas(formulario)">
-          Ver Respuestas
-        </ion-button>
+        <ion-button color="primary" (click)="responderFormulario(formulario)" [disabled]="respuestas[i]">Responder</ion-button>
       </ion-buttons>
     </ion-item>
   </ion-list>

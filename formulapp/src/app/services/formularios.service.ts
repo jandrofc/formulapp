@@ -1,3 +1,4 @@
+import { Respuestas } from './../pages/models/form.model';
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, setDoc, getDocs, query, where, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
@@ -116,18 +117,17 @@ export class FormularioService {
 
     async obtenerFormulariosRespondidos(userId: string): Promise<any[]> {
       try {
-        const q = query(this.form_respuestas, where('user_id', '==', userId));
+        console.log('userId', userId)
+        const q = query(this.form_respuestas, where('user_id', '==', userId ));
         const querySnapshot = await getDocs(q);
-
-        const formularios: any[] = [];
+        console.log(querySnapshot)
+        const respuestas: Boolean[] = [];
         for (const doc of querySnapshot.docs) {
           const respuesta = doc.data();
-          const formulario = await this.obtenerFormularioPorId(respuesta['form_id']);
-          if (formulario) {
-            formularios.push({ ...formulario, id: doc.id });
-          }
+          console.log(respuesta)
+          respuestas.push(!!respuesta);
         }
-        return formularios;
+        return respuestas;
       } catch (error) {
         console.error('Error al obtener formularios respondidos:', error);
         throw error;

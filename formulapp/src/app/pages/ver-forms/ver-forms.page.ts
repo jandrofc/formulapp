@@ -11,9 +11,9 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class VerFormsPage implements OnInit {
   cargando = true;
-  respuestas = [];
+  respuestas: any[] = [];
   formulariosCompartidos: Array<any> = [];
-
+  isLoading: boolean = true;
 
 
   constructor(
@@ -26,18 +26,19 @@ export class VerFormsPage implements OnInit {
     //const id = this.route.snapshot.paramMap.get('id');
 
     // Primero, suscríbete al Observable para obtener el usuario
-    console.log('test')
     this.firebaseService.authState$.pipe().subscribe((user)=>{
       if (user) {
         // Ahora puedes acceder al correo del usuario
         const email = user.email;
         console.log('Email del usuario:', email);
         this.formularioService.obtenerFormulariosCompartidos(email).then((formularios) => {
-          this.formulariosCompartidos = formularios;
+        this.formulariosCompartidos = formularios;
+        this.formularioService.obtenerFormulariosRespondidos(user.uid).then((respuestas) => {
+          this.respuestas = respuestas;
+          this.cargando = false;
+        });
         }).catch((error) => {
           console.error('Error al cargar el formulario:', error);
-        }).finally(() => {
-          this.cargando = false;
         });
       }
     });
@@ -46,10 +47,6 @@ export class VerFormsPage implements OnInit {
   responderFormulario(formulario: any) {
     this.formularioService.CargarFormulario(formulario);
     this.route.navigate(['/entrenado/responder-formulario', formulario.id]);
-  }
-
-  verRespuestas(formulario: any) {
-    console.log('Ver respuestas:', formulario);
   }
 
 

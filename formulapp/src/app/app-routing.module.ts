@@ -38,14 +38,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/ver-forms/ver-forms.module').then( m => m.VerFormsPageModule)
       },
       {
-        path: 'misforms',
-        loadChildren: () => import('./pages/misforms/misforms.module').then(m => m.MisformsPageModule)
-      },
-      {
-        path: 'mis-resp',
-        loadChildren: () => import('./pages/mis-resp/mis-resp.module').then( m => m.MisRespPageModule)
-      },
-      {
         path: 'responder-formulario/:id',
         loadChildren: () => import('./pages/responder-formulario/responder-formulario.module').then( m => m.ResponderFormularioPageModule)
       },
