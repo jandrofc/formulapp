@@ -115,17 +115,22 @@ export class FormularioService {
       }
     }
 
-    async obtenerFormulariosRespondidos(userId: string): Promise<any[]> {
+    async obtenerFormulariosRespondidos(userId: string,data:any): Promise<any[]> {
       try {
         console.log('userId', userId)
         const q = query(this.form_respuestas, where('user_id', '==', userId ));
         const querySnapshot = await getDocs(q);
         console.log(querySnapshot)
         const respuestas: Boolean[] = [];
-        for (const doc of querySnapshot.docs) {
-          const respuesta = doc.data();
-          console.log(respuesta)
-          respuestas.push(!!respuesta);
+        for (let id in data)
+        {
+          if (querySnapshot.docs.map(doc => doc.data()['form_id']).includes(data[id].id))
+          {
+            respuestas.push(true);
+          }
+          else{
+            respuestas.push(false);
+          }
         }
         return respuestas;
       } catch (error) {
@@ -133,6 +138,7 @@ export class FormularioService {
         throw error;
       }
     }
+
 
     async verificarCorreoExistente(email: string) {
       const usuariosRef = collection(this.firestore, 'users');

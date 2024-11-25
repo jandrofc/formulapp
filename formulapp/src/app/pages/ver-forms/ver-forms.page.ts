@@ -33,8 +33,10 @@ export class VerFormsPage implements OnInit {
         console.log('Email del usuario:', email);
         this.formularioService.obtenerFormulariosCompartidos(email).then((formularios) => {
         this.formulariosCompartidos = formularios;
-        this.formularioService.obtenerFormulariosRespondidos(user.uid).then((respuestas) => {
+        this.formularioService.obtenerFormulariosRespondidos(user.uid,formularios).then((respuestas) => {
           this.respuestas = respuestas;
+          console.log('Formularios respondidos:', this.respuestas);
+          console.log('Formularios compartidos:', this.formulariosCompartidos);
           this.cargando = false;
         });
         }).catch((error) => {
