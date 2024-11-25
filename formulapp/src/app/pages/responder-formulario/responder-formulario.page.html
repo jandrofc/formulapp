@@ -1,7 +1,7 @@
 <ion-content>
   <ion-header>
     <ion-toolbar>
-      <ion-title>{{ InformacionForm.form_name }}</ion-title>
+      <ion-title>Formulario</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -18,10 +18,12 @@
         <h2>{{ i + 1 }}. {{ pregunta.texto }}</h2>
       </ion-label>
       <ion-list class="opciones-lista" *ngIf="pregunta.tipo === 'Opcion multiple'">
+        <ion-radio-group [(ngModel)]="pregunta.selectedOption">
         <ion-item *ngFor="let opcion of pregunta.opciones" lines="none" class="opcion-item">
-          <ion-radio slot="start"></ion-radio>
+          <ion-radio slot="start" [value]="opcion"></ion-radio>
           <ion-label>{{ opcion }}</ion-label>
         </ion-item>
+        </ion-radio-group>
       </ion-list>
     </ion-item>
   </ion-list>

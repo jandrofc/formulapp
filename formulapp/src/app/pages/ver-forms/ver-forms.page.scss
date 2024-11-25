@@ -1,3 +1,11 @@
+ion-content {
+  --background: linear-gradient(to bottom, #171717, #575757); // Fondo blanco para todo el contenido
+  display: flex;
+  flex-direction: column; // Asegura que los elementos hijos se apilen verticalmente
+  padding: 0; // Elimina el padding para evitar desplazamientos
+  box-sizing: border-box;
+}
+
 ion-list {
   margin-top: 1rem;
 }
